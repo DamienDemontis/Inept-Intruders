@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7250942740247496173}
   - component: {fileID: 2058268955672729405}
   m_Layer: 3
-  m_Name: Player
+  m_Name: RobertPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,12 +72,12 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.75
-  m_Radius: 0.4
+  m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.9, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0.05}
 --- !u!1 &6271133762411130726
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +103,7 @@ Transform:
   m_GameObject: {fileID: 6271133762411130726}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 1.6, z: 0.3}
+  m_LocalPosition: {x: 0.05, y: 1.65, z: 0.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
