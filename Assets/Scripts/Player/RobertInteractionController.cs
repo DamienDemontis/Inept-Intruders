@@ -17,7 +17,10 @@ public class RobertInteractionController : MonoBehaviour
 
     private void Awake()
     {
-        ResetCurrentInteractable();
+        if (promptText)
+        {
+            promptText.text = string.Empty;
+        }
     }
 
     private void OnEnable()
@@ -58,10 +61,9 @@ public class RobertInteractionController : MonoBehaviour
 
     private void ResetCurrentInteractable()
     {
-        promptText.text = string.Empty;
-
         if (_currentInteractable)
         {
+            promptText.text = string.Empty;
             _currentInteractable.ToggleOutline(false);
             _currentInteractable = null;
         }
