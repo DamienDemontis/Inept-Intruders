@@ -485,7 +485,6 @@ MonoBehaviour:
   airMultiplier: 0.4
   orientation: {fileID: 493909059}
   modelTransform: {fileID: 562369587}
-  rotationSpeed: 40
 --- !u!143 &493909061
 CharacterController:
   m_ObjectHideFlags: 0
@@ -505,7 +504,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.8
+  m_Height: 1.75
   m_Radius: 0.4
   m_SlopeLimit: 45
   m_StepOffset: 0.3
