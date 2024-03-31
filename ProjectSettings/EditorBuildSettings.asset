@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/RobertPlayerGameplay.unity
+    path: Assets/Scenes/Menu/Bootstrap.unity
+    guid: fbf7098169628e1499c17c6317f4fc66
+  - enabled: 1
+    path: Assets/Scenes/Menu/MainMenu.unity
+    guid: e94d4f6ed645c6e45b1c38f583b84f06
+  - enabled: 1
+    path: Assets/Scenes/RobertPlayerMovement.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects: {}
