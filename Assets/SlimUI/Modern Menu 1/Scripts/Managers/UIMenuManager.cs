@@ -21,6 +21,9 @@ namespace SlimUI.ModernMenu{
         [Tooltip("Optional 4th Menu")]
         public GameObject extrasMenu;
 
+		[Tooltip("The Menu for when the LOBBY button is clicked")]
+		public GameObject lobbyMenu;
+
         public enum Theme {custom1, custom2, custom3};
         [Header("THEME SETTINGS")]
         public Theme theme;
@@ -85,6 +88,7 @@ namespace SlimUI.ModernMenu{
 
 			playMenu.SetActive(false);
 			exitMenu.SetActive(false);
+			lobbyMenu.SetActive(false);
 			if(extrasMenu) extrasMenu.SetActive(false);
 			firstMenu.SetActive(true);
 			mainMenu.SetActive(true);
@@ -154,6 +158,26 @@ namespace SlimUI.ModernMenu{
 
 		public void Position1(){
 			CameraObject.SetFloat("Animate",0);
+		}
+
+		public void ActivateLobbyMenu()
+		{
+			// DisablePlayCampaign();
+			// lobbyMenu.SetActive(true);
+			playMenu.SetActive(true);
+			mainMenu.SetActive(true);
+			mainCanvas.SetActive(true);
+			CameraObject.SetFloat("Lobby", 2);
+		}
+
+		public void ReturnFromLobby()
+		{
+			// lobbyMenu.SetActive(false);
+			// mainMenu.SetActive(true);
+			CameraObject.SetFloat("Lobby", 0);
+			playMenu.SetActive(true);
+			mainMenu.SetActive(true);
+			mainCanvas.SetActive(true);
 		}
 
 		void DisablePanels(){
@@ -265,7 +289,7 @@ namespace SlimUI.ModernMenu{
 		IEnumerator LoadAsynchronously(string sceneName){ // scene name is just the name of the current scene being loaded
 			AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
 			operation.allowSceneActivation = false;
-			mainCanvas.SetActive(false);
+			mainCanvas.SetActive(true);
 			loadingMenu.SetActive(true);
 
 			while (!operation.isDone){
