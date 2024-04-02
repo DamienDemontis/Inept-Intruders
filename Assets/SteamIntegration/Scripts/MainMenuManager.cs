@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour
 {
     private static MainMenuManager instance;
+
+    public Material skyboxMaterial;
  
     [SerializeField] private GameObject menuScreen, lobbyScreen;
     [SerializeField] private TMP_InputField lobbyInput;
@@ -17,6 +19,7 @@ public class MainMenuManager : MonoBehaviour
  
     private void Start()
     {
+        RenderSettings.skybox = skyboxMaterial;
         OpenMainMenu();
     }
  
