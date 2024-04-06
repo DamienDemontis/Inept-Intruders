@@ -11792,7 +11792,7 @@ GameObject:
   - component: {fileID: 1705153055}
   - component: {fileID: 1705153054}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
