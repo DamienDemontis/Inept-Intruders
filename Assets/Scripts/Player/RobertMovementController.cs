@@ -28,6 +28,20 @@ public class RobertMovementController : NetworkBehaviour
     {
         _characterController = GetComponent<CharacterController>();
         _animator = modelTransform.GetComponent<Animator>();
+
+    }
+
+    private void Start()
+    {
+        Debug.Log("isLocalPlayer = " + isLocalPlayer);
+        if (isLocalPlayer)
+        {
+            _characterController.enabled = true;
+        }
+        else
+        {
+            _characterController.enabled = false;
+        }
     }
 
     private void OnEnable()
@@ -48,9 +62,8 @@ public class RobertMovementController : NetworkBehaviour
 
     private void Update()
     {
-        if (isLocalPlayer) {
-            Move();
-        }
+        if (!isLocalPlayer) return;
+        Move();
     }
 
     private void Move()
