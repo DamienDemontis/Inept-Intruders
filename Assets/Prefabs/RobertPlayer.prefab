@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 65990376895698423}
   - component: {fileID: 7250942740247496173}
   - component: {fileID: 2058268955672729405}
+  - component: {fileID: 6497178818372870386}
   m_Layer: 3
   m_Name: RobertPlayer
   m_TagString: Untagged
@@ -78,6 +79,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0.05}
+--- !u!114 &6497178818372870386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 545456490526126618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 3196536928
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
 --- !u!1 &6271133762411130726
 GameObject:
   m_ObjectHideFlags: 0

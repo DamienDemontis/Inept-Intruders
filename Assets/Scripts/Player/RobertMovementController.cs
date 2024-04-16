@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
-public class RobertMovementController : MonoBehaviour
+public class RobertMovementController : NetworkBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2.0f;
@@ -47,7 +48,9 @@ public class RobertMovementController : MonoBehaviour
 
     private void Update()
     {
-        Move();
+        if (isLocalPlayer) {
+            Move();
+        }
     }
 
     private void Move()
