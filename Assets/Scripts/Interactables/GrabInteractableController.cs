@@ -15,6 +15,14 @@ public class GrabInteractableController : InteractableController
         _startingPos = transform.position;
     }
 
+    private void Update()
+    {
+        if (transform.position.y < -1.0f)
+        {
+            transform.position = _startingPos;
+        }
+    }
+
     public override string GetPromptMessage()
     {
         if (!_isGrabbing)
@@ -32,12 +40,16 @@ public class GrabInteractableController : InteractableController
         if (_isGrabbing)
         {
             GameManager.Instance.RobertInteractionController.DropInteractable();
-            _rb.isKinematic = false;
-            _rb.velocity = Vector3.zero;
         } else
         {
             _rb.isKinematic = true;
-            GameManager.Instance.RobertInteractionController.GrabInteractable(this);
+
+            bool canGrab = GameManager.Instance.RobertInteractionController.GrabInteractable(this);
+
+            if (!canGrab)
+            {
+                return;
+            }
         }
 
         _isGrabbing = !_isGrabbing;

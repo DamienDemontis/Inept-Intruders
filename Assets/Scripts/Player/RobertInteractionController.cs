@@ -7,6 +7,7 @@ using TMPro;
 public class RobertInteractionController : MonoBehaviour
 {
     [Header("Interaction")]
+    [SerializeField] private float interactionRadius = 0.25f;
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private LayerMask interactableLayer;
 
@@ -19,12 +20,18 @@ public class RobertInteractionController : MonoBehaviour
     private InteractableController _currentInteractable = null;
     private InteractableController _grabbedInteractable = null;
 
+    private RobertMovementController _movementController = null;
+
+    public bool IsGrabbing => _grabbedInteractable != null;
+
     private void Awake()
     {
         if (promptText)
         {
             promptText.text = string.Empty;
         }
+
+        _movementController = GetComponent<RobertMovementController>();
     }
 
     private void OnEnable()
@@ -47,7 +54,7 @@ public class RobertInteractionController : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.SphereCast(ray.origin, 0.5f, ray.direction, out hit, interactionDistance, interactableLayer))
+        if (Physics.SphereCast(ray.origin, interactionRadius, ray.direction, out hit, interactionDistance, interactableLayer))
         {
             InteractableController interactable = hit.collider.GetComponent<InteractableController>();
             if (interactable)
@@ -76,33 +83,54 @@ public class RobertInteractionController : MonoBehaviour
         }
     }
 
-    public void GrabInteractable(InteractableController grabInteractable)
+    public bool GrabInteractable(InteractableController grabInteractable)
     {
         if (_grabbedInteractable)
         {
             DropInteractable();
+            return false;
         }
 
         _grabbedInteractable = grabInteractable;
         _grabbedInteractable.transform.position = grabParent.transform.position;
         _grabbedInteractable.transform.SetParent(grabParent);
+        return true;
     }
 
     public void DropInteractable()
     {
-        _grabbedInteractable.transform.parent = null;
-        _grabbedInteractable = null;
+        StartCoroutine(DropInteractableSequence());
+    }
+
+    private IEnumerator DropInteractableSequence()
+    {
+        InteractableController tmpGrabInteractable = _grabbedInteractable;
+
+        _movementController.ToggleMovement(false);
+
+        _movementController.Animator.SetTrigger("DropObject");
+
+        yield return new WaitForSeconds(0.9f);
+
+        tmpGrabInteractable.transform.parent = null;
+        tmpGrabInteractable.GetComponent<Rigidbody>().isKinematic = false;
+
+        if (_grabbedInteractable == tmpGrabInteractable)
+        {
+            _grabbedInteractable = null;
+        }
+
+        _movementController.ToggleMovement(true);
     }
 
     private void OnInteract(InputAction.CallbackContext ctx)
     {
-        if (_grabbedInteractable && _grabbedInteractable != _currentInteractable)
-        {
-            _grabbedInteractable.Interact();
-        }
-
         if (!_currentInteractable)
         {
+            if (_grabbedInteractable && _grabbedInteractable != _currentInteractable)
+            {
+                _grabbedInteractable.Interact();
+            }
             return;
         }
 
