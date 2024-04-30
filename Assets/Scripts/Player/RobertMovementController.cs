@@ -6,9 +6,12 @@ using UnityEngine.InputSystem;
 public class RobertMovementController : MonoBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 2.0f;
+    [SerializeField, Tooltip("Movement speed")] private float moveSpeed = 2.0f;
+    [SerializeField, Tooltip("Multiplier to apply on movement speed while in the air")] private float airMultiplier = 0.4f;
+
+    [Header("Jump")]
     [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField] private float airMultiplier = 0.4f;
+    [SerializeField] private float coyoteTime = 0.5f;
 
     [Header("References")]
     [SerializeField] private Transform orientation;
@@ -18,6 +21,9 @@ public class RobertMovementController : MonoBehaviour
     private Animator _animator;
 
     private bool _isGrounded = false;
+    private float _lastGroundedTime = 0;
+    private bool _canJump = true;
+
     private float _gravityValue = -9.81f;
     private float _gravityPull = 0;
 
@@ -53,9 +59,15 @@ public class RobertMovementController : MonoBehaviour
     private void Move()
     {
         _isGrounded = _characterController.isGrounded;
-        if (_isGrounded && _gravityPull < 0)
+        if (_isGrounded)
         {
-            _gravityPull = 0f;
+            _lastGroundedTime = Time.time;
+            _canJump = true;
+
+            if (_gravityPull < 0)
+            {
+                _gravityPull = 0f;
+            }
         }
 
         Vector3 movementDirection = orientation.right * _moveVector.x  + orientation.forward * _moveVector.z;
@@ -93,10 +105,17 @@ public class RobertMovementController : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext ctx)
     {
-        if (!_isGrounded)
+        if (!_canJump)
         {
             return;
         }
+
+        if (!_isGrounded && (Time.time - _lastGroundedTime) > coyoteTime)
+        {
+            return;
+        }
+
+        _canJump = false;
 
         _gravityPull = Mathf.Sqrt(jumpHeight * -2f * _gravityValue);
         _animator.SetTrigger("Jump");

@@ -689,9 +689,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3fc2de3780bee4fb5666b9e0cb5426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  jumpHeight: 0.6
-  airMultiplier: 0.4
+  moveSpeed: 8
+  airMultiplier: 0.7
+  jumpHeight: 1
+  coyoteTime: 0.1
   orientation: {fileID: 2056557781924368162}
   modelTransform: {fileID: 1002061893063225292}
 --- !u!114 &3681302648097008473
