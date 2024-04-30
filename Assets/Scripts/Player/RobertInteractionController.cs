@@ -10,10 +10,14 @@ public class RobertInteractionController : MonoBehaviour
     [SerializeField] private float interactionDistance = 3f;
     [SerializeField] private LayerMask interactableLayer;
 
+    [Header("Grab")]
+    [SerializeField] private Transform grabParent;
+
     [Header("References")]
     [SerializeField] private TextMeshProUGUI promptText;
 
-    InteractableController _currentInteractable;
+    private InteractableController _currentInteractable = null;
+    private InteractableController _grabbedInteractable = null;
 
     private void Awake()
     {
@@ -40,8 +44,11 @@ public class RobertInteractionController : MonoBehaviour
 
     private void CheckInteractable()
     {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, interactionDistance, interactableLayer)) {
+
+        if (Physics.SphereCast(ray.origin, 0.5f, ray.direction, out hit, interactionDistance, interactableLayer))
+        {
             InteractableController interactable = hit.collider.GetComponent<InteractableController>();
             if (interactable)
             {
@@ -51,7 +58,7 @@ public class RobertInteractionController : MonoBehaviour
                 }
                 _currentInteractable = interactable;
                 _currentInteractable.ToggleOutline(true);
-                promptText.text = "Click to " + _currentInteractable.GetPromptMessage();
+                promptText.text = "Click / E to " + _currentInteractable.GetPromptMessage();
                 return;
             }
         }
@@ -69,8 +76,31 @@ public class RobertInteractionController : MonoBehaviour
         }
     }
 
+    public void GrabInteractable(InteractableController grabInteractable)
+    {
+        if (_grabbedInteractable)
+        {
+            DropInteractable();
+        }
+
+        _grabbedInteractable = grabInteractable;
+        _grabbedInteractable.transform.position = grabParent.transform.position;
+        _grabbedInteractable.transform.SetParent(grabParent);
+    }
+
+    public void DropInteractable()
+    {
+        _grabbedInteractable.transform.parent = null;
+        _grabbedInteractable = null;
+    }
+
     private void OnInteract(InputAction.CallbackContext ctx)
     {
+        if (_grabbedInteractable && _grabbedInteractable != _currentInteractable)
+        {
+            _grabbedInteractable.Interact();
+        }
+
         if (!_currentInteractable)
         {
             return;
