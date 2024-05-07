@@ -5,6 +5,7 @@ using UnityEngine;
 public class GrabInteractableController : InteractableController
 {
     private Rigidbody _rb;
+    private Collider _collider;
 
     private bool _isGrabbing = false;
     private Vector3 _startingPos = Vector3.zero;
@@ -12,6 +13,7 @@ public class GrabInteractableController : InteractableController
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
         _startingPos = transform.position;
     }
 
@@ -42,14 +44,15 @@ public class GrabInteractableController : InteractableController
             GameManager.Instance.RobertInteractionController.DropInteractable();
         } else
         {
-            _rb.isKinematic = true;
-
             bool canGrab = GameManager.Instance.RobertInteractionController.GrabInteractable(this);
 
             if (!canGrab)
             {
                 return;
             }
+
+            _rb.isKinematic = true;
+            _collider.enabled = false;
         }
 
         _isGrabbing = !_isGrabbing;
