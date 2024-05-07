@@ -1773,6 +1773,7 @@ GameObject:
   - component: {fileID: 2022717192931293974}
   - component: {fileID: 1187802181351575127}
   - component: {fileID: 8888001300085553801}
+  - component: {fileID: 6847278548677863997}
   m_Layer: 3
   m_Name: NetworkedRobert
   m_TagString: Player
@@ -1848,6 +1849,29 @@ MonoBehaviour:
   rotationSensitivity: 0.01
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &6847278548677863997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4869735372142975745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0022380b632aef4cb8ab8ac385c9b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  componentsToDisable:
+  - {fileID: 5183392126499303584}
+  - {fileID: 3281028295832999759}
+  - {fileID: 2030554057335386861}
+  - {fileID: 1382382424543048040}
+  - {fileID: 1868773339055910595}
+  - {fileID: 5511563993960369302}
+  - {fileID: 2727691680840737085}
 --- !u!1 &5038929213126934991
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,6 +2002,7 @@ GameObject:
   - component: {fileID: 4724349423509631271}
   - component: {fileID: 2727691680840737085}
   - component: {fileID: 6767295698137052141}
+  - component: {fileID: 7568282075634787774}
   m_Layer: 3
   m_Name: RobertPlayer
   m_TagString: Untagged
@@ -2048,6 +2073,40 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0.05}
+--- !u!114 &7568282075634787774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5110436489508361930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 4724349423509631271}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!1 &5160103328410688278
 GameObject:
   m_ObjectHideFlags: 0
@@ -2522,6 +2581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5832750127785906633}
   - component: {fileID: 6973018405733476577}
+  - component: {fileID: 7669665720777613287}
   m_Layer: 3
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -2569,6 +2629,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7669665720777613287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6609533805184895859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 1
+  animator: {fileID: 6973018405733476577}
 --- !u!1 &6944028576020467006
 GameObject:
   m_ObjectHideFlags: 0
