@@ -112,8 +112,9 @@ public class RobertInteractionController : MonoBehaviour
 
         yield return new WaitForSeconds(0.9f);
 
-        tmpGrabInteractable.transform.parent = null;
+        tmpGrabInteractable.transform.SetParent(null, true);
         tmpGrabInteractable.GetComponent<Rigidbody>().isKinematic = false;
+        tmpGrabInteractable.GetComponent<Collider>().enabled = true;
 
         if (_grabbedInteractable == tmpGrabInteractable)
         {
