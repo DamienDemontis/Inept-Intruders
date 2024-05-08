@@ -18,20 +18,20 @@ public class SurveillanceCameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        _look = surveillanceCameraInputActions.SurveillanceCamera.Look;
-        _zoom = surveillanceCameraInputActions.SurveillanceCamera.ZoomInOut;
+        //_look = surveillanceCameraInputActions.SurveillanceCamera.Look;
+        //_zoom = surveillanceCameraInputActions.SurveillanceCamera.ZoomInOut;
 
-        _look.Enable();
-        _zoom.Enable();
+        //_look.Enable();
+        //_zoom.Enable();
 
-        _look.performed += Look;
-        _zoom.performed += Zoom;
+        //_look.performed += Look;
+        //_zoom.performed += Zoom;
     }
 
     private void OnDisable()
     {
-        _look.Disable();
-        _zoom.Disable();
+        //_look.Disable();
+        //_zoom.Disable();
     }
     private void Look(InputAction.CallbackContext context)
     {

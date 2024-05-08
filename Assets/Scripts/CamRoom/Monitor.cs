@@ -71,8 +71,11 @@ public class Monitor : MonoBehaviour, IInteractable
             return;
         }
 
-        _currentCamera.Controlled = false;
-        _currentCamera.Deactivate();
+        if (_currentCamera != null)
+        {
+            _currentCamera.Controlled = false;
+            _currentCamera.Deactivate();
+        }
 
         _currentCameraIndex     = cameraIndex;
         _lastCurrentCameraIndex = _currentCameraIndex;
