@@ -710,7 +710,7 @@ MonoBehaviour:
   interactionDistance: 2
   interactableLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 192
   grabParent: {fileID: 1888183550710233134}
   promptText: {fileID: 1515727252441191437}
 --- !u!143 &67656490546810344
