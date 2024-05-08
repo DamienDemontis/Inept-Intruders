@@ -52,8 +52,14 @@ public class CamRoom : MonoBehaviour
             Debug.Log($"[Monitor::Update] change camera index from {_lastCurrentRoomIndex} to {_currentRoomIndex}.");
 
             _lastCurrentRoomIndex = _currentRoomIndex;
+
+            if (_currentRoomIndex >= roomsList.Count)
+            {
+                _currentRoomIndex = 0;
+                Debug.Log($"[Monitor::Update] Room index to high, no more than {roomsList.Count} are availables.");
+            }
+
             cameraMonitor.SetCamerasList(roomsList[_currentRoomIndex].SurveillanceCamerasList);
-            //_currentCamera = roomsList[_currentRoomIndex % roomsList.Count];
         }
     }
 }
