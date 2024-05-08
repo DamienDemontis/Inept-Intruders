@@ -689,7 +689,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 8
-  airMultiplier: 0.8
+  airMultiplier: 0.7
   jumpHeight: 1
   coyoteTime: 0.1
   orientation: {fileID: 2056557781924368162}
@@ -1327,7 +1327,7 @@ Transform:
   m_GameObject: {fileID: 2588150184458403971}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00044531818, y: 0.9987348, z: -0.04947774, w: -0.008988837}
-  m_LocalPosition: {x: 0.038756147, y: 1.61009, z: 0.3107145}
+  m_LocalPosition: {x: 0.038756147, y: 1.61009, z: 4.3107147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
