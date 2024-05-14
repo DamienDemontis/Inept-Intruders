@@ -41,10 +41,10 @@ public class GrabInteractableController : InteractableController
 
         if (_isGrabbing)
         {
-            GameManager.Instance.RobertInteractionController.DropInteractable();
+            GameManager.Instance.RobertReferences.RobertInteractionController.DropInteractable();
         } else
         {
-            bool canGrab = GameManager.Instance.RobertInteractionController.GrabInteractable(this);
+            bool canGrab = GameManager.Instance.RobertReferences.RobertInteractionController.GrabInteractable(this);
 
             if (!canGrab)
             {
