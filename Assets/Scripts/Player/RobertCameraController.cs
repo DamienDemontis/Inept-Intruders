@@ -46,4 +46,10 @@ public class RobertCameraController : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
         orientation.rotation = Quaternion.Euler(0, _cameraRotation.y, 0);
     }
+    
+    public void ForceYRotation(float angleY)
+    {
+        _cameraRotation.y = angleY;
+        orientation.rotation = Quaternion.Euler(0, angleY, 0);
+    }
 }
