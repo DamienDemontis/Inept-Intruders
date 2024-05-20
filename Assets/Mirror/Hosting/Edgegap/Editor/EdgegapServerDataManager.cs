@@ -90,9 +90,7 @@ namespace Edgegap
 
         static EdgegapServerDataManager()
         {
-#if UNITY_EDITOR
             _serverDataStylesheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Edgegap/Editor/EdgegapServerData.uss");
-#endif
         }
         public static void RegisterServerDataContainer(VisualElement serverDataContainer)
         {
