@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Mirror;
 
-public class RobertMovementController : MonoBehaviour
+public class RobertMovementController : NetworkBehaviour
 {
     [Header("Movement")]
     [SerializeField, Tooltip("Movement speed")] private float moveSpeed = 2.0f;
@@ -39,7 +40,22 @@ public class RobertMovementController : MonoBehaviour
         _characterController = GetComponent<CharacterController>();
         _animator = modelTransform.GetComponent<Animator>();
 
+
         _startingPos = transform.position;
+
+    }
+
+    private void Start()
+    {
+        Debug.Log("isLocalPlayer = " + isLocalPlayer);
+        if (isLocalPlayer)
+        {
+            _characterController.enabled = true;
+        }
+        else
+        {
+            _characterController.enabled = false;
+        }
     }
 
     private void OnEnable()
@@ -60,11 +76,13 @@ public class RobertMovementController : MonoBehaviour
 
     private void Update()
     {
+
         if (transform.position.y < -10.0f)
         {
             ForcePosition(_startingPos);
         }
 
+        if (!isLocalPlayer) return;
         Move();
     }
 
