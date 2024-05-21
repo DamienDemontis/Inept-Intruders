@@ -8,10 +8,10 @@ public class ObjectSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnBox();
+        SpawnObject();
     }
 
-    public void SpawnBox()
+    public void SpawnObject()
     {
         DestroyPropagator spawnedObject = Instantiate(objectPrefab, transform);
         spawnedObject.OnObjectDestroyed += OnObjectDestroyed;
@@ -19,6 +19,6 @@ public class ObjectSpawner : MonoBehaviour
 
     public void OnObjectDestroyed(GameObject destroyedObject)
     {
-        SpawnBox();
+        SpawnObject();
     }
 }
