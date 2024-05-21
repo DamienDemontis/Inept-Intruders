@@ -9,7 +9,7 @@ public class ToggleInteractableController : MonoBehaviour, IInteractable
         Debug.Log("Toggle interacted with " + name);
     }
 
-    public void CancelInteract()
+    public virtual void CancelInteract()
     {
         Debug.Log("Toggle cancel interacted with " + name);
     }

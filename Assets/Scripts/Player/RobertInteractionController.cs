@@ -65,7 +65,7 @@ public class RobertInteractionController : MonoBehaviour, IDamageable
                 }
                 _currentInteractable = interactable;
                 _currentInteractable.ToggleOutline(true);
-                promptText.text = "Click / E to " + _currentInteractable.GetPromptMessage();
+                promptText.text = _currentInteractable.GetPromptMessage();
                 return;
             }
         }
