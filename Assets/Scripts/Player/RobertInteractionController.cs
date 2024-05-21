@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class RobertInteractionController : MonoBehaviour
+public class RobertInteractionController : MonoBehaviour, IDamageable
 {
     [Header("Interaction")]
     [SerializeField] private float interactionRadius = 0.25f;
@@ -136,6 +136,11 @@ public class RobertInteractionController : MonoBehaviour
         }
 
         _currentInteractable.Interact();
+    }
+
+    public void OnDamage()
+    {
+        GameManager.Instance.TriggerRobertPlayerDeath();
     }
 
     private void OnDrawGizmosSelected()

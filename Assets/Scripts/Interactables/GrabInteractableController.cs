@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabInteractableController : InteractableController
+public class GrabInteractableController : InteractableController, IDamageable
 {
     private Rigidbody _rb;
     private Collider _collider;
@@ -19,10 +19,25 @@ public class GrabInteractableController : InteractableController
 
     private void Update()
     {
-        if (transform.position.y < -1.0f)
+        if (transform.position.y < -5.0f)
         {
-            transform.position = _startingPos;
+            Destroy();
         }
+    }
+
+    public void OnDamage()
+    {
+        Destroy();
+    }
+
+    public void Destroy()
+    {
+        transform.position = _startingPos;
+
+        // Reset variables
+        _isGrabbing = false;
+        _rb.isKinematic = false;
+        _collider.enabled = true;
     }
 
     public override string GetPromptMessage()

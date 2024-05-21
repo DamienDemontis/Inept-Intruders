@@ -4,26 +4,40 @@ using UnityEngine;
 
 public class DamageCollider : MonoBehaviour
 {
-    [SerializeField, Tooltip("Trigger player death when trigger collider entered, or simply when collision is registered")] private bool useTrigger;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField, Tooltip("Damage object when trigger collider entered, or simply when collision is registered")] private bool useTrigger;
+    [SerializeField] private LayerMask damageLayer;
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (useTrigger || !playerLayer.Contains(collision.gameObject.layer))
+        if (useTrigger || !damageLayer.Contains(collision.gameObject.layer))
         {
             return;
         }
 
-        GameManager.Instance.TriggerRobertPlayerDeath();
+        IDamageable damageable = collision.gameObject.GetComponent<IDamageable>();
+
+        if (damageable == null)
+        {
+            return;
+        }
+
+        damageable.OnDamage();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!useTrigger || !playerLayer.Contains(other.gameObject.layer))
+        if (!useTrigger || !damageLayer.Contains(other.gameObject.layer))
         {
             return;
         }
 
-        GameManager.Instance.TriggerRobertPlayerDeath();
+        IDamageable damageable = other.gameObject.GetComponent<IDamageable>();
+
+        if (damageable == null)
+        {
+            return;
+        }
+
+        damageable.OnDamage();
     }
 }
