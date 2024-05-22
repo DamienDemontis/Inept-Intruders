@@ -5246,9 +5246,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTrigger: 1
-  playerLayer:
+  damageLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 136
 --- !u!65 &4416762250476482456
 BoxCollider:
   m_ObjectHideFlags: 0
