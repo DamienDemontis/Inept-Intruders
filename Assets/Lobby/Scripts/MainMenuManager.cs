@@ -15,21 +15,18 @@ public class MainMenuManager : MonoBehaviour
 
     private NetworkManager networkManager;
 
-    private void Awake()
+    private void Start()
     {
+        RenderSettings.skybox = skyboxMaterial;
+
+        // Initialize networkManager in Start
         networkManager = NetworkManager.singleton;
 
         if (networkManager == null)
         {
             Debug.LogError("NetworkManager singleton is not set. Ensure there is a NetworkManager in the scene.");
         }
-    }
-
-    private void Start()
-    {
-        RenderSettings.skybox = skyboxMaterial;
-
-        if (networkManager != null)
+        else
         {
             OpenMainMenu();
         }
@@ -40,6 +37,7 @@ public class MainMenuManager : MonoBehaviour
         if (networkManager != null)
         {
             networkManager.StartHost();
+            lobbyIDText.text = "127.0.0.1:" + networkManager.GetComponent<TelepathyTransport>().port; // Update the UI with the local address and port
         }
         else
         {
@@ -67,11 +65,28 @@ public class MainMenuManager : MonoBehaviour
 
     public void JoinLobby()
     {
-        string lobbyID = lobbyInput.text;
+        string networkAddress = lobbyInput.text;
         if (networkManager != null)
         {
-            networkManager.networkAddress = lobbyID;
-            networkManager.StartClient();
+            string[] addressParts = networkAddress.Split(':');
+            if (addressParts.Length == 2)
+            {
+                networkManager.networkAddress = addressParts[0];
+                ushort port;
+                if (ushort.TryParse(addressParts[1], out port))
+                {
+                    networkManager.GetComponent<TelepathyTransport>().port = port;
+                    networkManager.StartClient();
+                }
+                else
+                {
+                    Debug.LogError("Invalid port number.");
+                }
+            }
+            else
+            {
+                Debug.LogError("Invalid network address format. Use IP:Port.");
+            }
         }
         else
         {
@@ -109,9 +124,8 @@ public class MainMenuManager : MonoBehaviour
         var instance = FindObjectOfType<MainMenuManager>();
         if (instance != null)
         {
-            instance.lobbyTitle.text = lobbyName;
+            instance.lobbyTitle.text = "Lobby";
             instance.startGameButton.gameObject.SetActive(isHost);
-            instance.lobbyIDText.text = NetworkManager.singleton.networkAddress;
             instance.OpenLobby();
         }
         else
