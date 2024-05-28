@@ -62,16 +62,16 @@ public class RobertMovementController : MonoBehaviour
     {
         if (transform.position.y < -10.0f)
         {
-            ResetPosition();
+            ForcePosition(_startingPos);
         }
 
         Move();
     }
 
-    private void ResetPosition()
+    public void ForcePosition(Vector3 position)
     {
         _characterController.enabled = false;
-        transform.position = _startingPos;
+        transform.position = position;
         _characterController.enabled = true;
     }
 

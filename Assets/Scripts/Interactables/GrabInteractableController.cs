@@ -2,27 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrabInteractableController : InteractableController
+public class GrabInteractableController : InteractableController, IDamageable
 {
     private Rigidbody _rb;
     private Collider _collider;
 
     private bool _isGrabbing = false;
-    private Vector3 _startingPos = Vector3.zero;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
-        _startingPos = transform.position;
     }
 
-    private void Update()
+    public void OnDamage()
     {
-        if (transform.position.y < -1.0f)
-        {
-            transform.position = _startingPos;
-        }
+        Destroy(gameObject);
     }
 
     public override string GetPromptMessage()
@@ -41,10 +36,10 @@ public class GrabInteractableController : InteractableController
 
         if (_isGrabbing)
         {
-            GameManager.Instance.RobertInteractionController.DropInteractable();
+            GameManager.Instance.RobertReferences.RobertInteractionController.DropInteractable();
         } else
         {
-            bool canGrab = GameManager.Instance.RobertInteractionController.GrabInteractable(this);
+            bool canGrab = GameManager.Instance.RobertReferences.RobertInteractionController.GrabInteractable(this);
 
             if (!canGrab)
             {

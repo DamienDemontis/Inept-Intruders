@@ -4,10 +4,22 @@ using UnityEngine;
 
 public class DoorInteractableController : InteractableController
 {
+    [SerializeField] private bool _isLocked = false;
+
     private bool _isOpen = false;
+
+    public bool IsLocked {
+        get { return _isLocked; }
+        set { _isLocked = value; }
+    }
 
     public override string GetPromptMessage()
     {
+        if (_isLocked && !_isOpen)
+        {
+            return "Locked";
+        }
+
         if (!_isOpen)
         {
             return "Open";
@@ -18,6 +30,11 @@ public class DoorInteractableController : InteractableController
 
     public override void Interact()
     {
+        if (_isLocked && !_isOpen)
+        {
+            return;
+        }
+
         base.Interact();
 
         if (!_isOpen)

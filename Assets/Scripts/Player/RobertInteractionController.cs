@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class RobertInteractionController : MonoBehaviour
+public class RobertInteractionController : MonoBehaviour, IDamageable
 {
     [Header("Interaction")]
     [SerializeField] private float interactionRadius = 0.25f;
@@ -65,7 +65,7 @@ public class RobertInteractionController : MonoBehaviour
                 }
                 _currentInteractable = interactable;
                 _currentInteractable.ToggleOutline(true);
-                promptText.text = "Click / E to " + _currentInteractable.GetPromptMessage();
+                promptText.text = _currentInteractable.GetPromptMessage();
                 return;
             }
         }
@@ -136,6 +136,11 @@ public class RobertInteractionController : MonoBehaviour
         }
 
         _currentInteractable.Interact();
+    }
+
+    public void OnDamage()
+    {
+        GameManager.Instance.TriggerRobertPlayerDeath();
     }
 
     private void OnDrawGizmosSelected()
