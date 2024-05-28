@@ -150,6 +150,7 @@ public class MainMenuManager : MonoBehaviour
             instance.lobbyTitle.text = "Lobby";
             instance.startGameButton.gameObject.SetActive(isHost);
             instance.OpenLobby();
+            instance.UpdatePlayerList(); // Update the player list when entering the lobby
         }
         else
         {
@@ -157,22 +158,94 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
-    public static void UpdatePlayerList(List<string> playerNames)
+    public void UpdatePlayerList(List<string> playerNames = null, List<string> selectedCharacters = null)
     {
         Debug.Log("UpdatePlayerList called.");
-        var instance = FindObjectOfType<MainMenuManager>();
-        if (instance != null)
+        if (playerNames == null || selectedCharacters == null)
         {
-            foreach (Transform child in instance.playerListContainer)
+            var players = FindObjectsOfType<LobbyPlayer>();
+            playerNames = new List<string>();
+            selectedCharacters = new List<string>();
+            foreach (var player in players)
             {
-                Destroy(child.gameObject);
-            }
-
-            foreach (var playerName in playerNames)
-            {
-                var playerListItem = Instantiate(instance.playerListItemPrefab, instance.playerListContainer);
-                playerListItem.GetComponentInChildren<TextMeshProUGUI>().text = playerName;
+                playerNames.Add(player.playerName);
+                selectedCharacters.Add(player.selectedCharacter);
             }
         }
+
+        foreach (Transform child in playerListContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        for (int i = 0; i < playerNames.Count; i++)
+        {
+            var playerListItem = Instantiate(playerListItemPrefab, playerListContainer);
+            playerListItem.GetComponentInChildren<TextMeshProUGUI>().text = playerNames[i];
+
+            var player = FindPlayerByName(playerNames[i]);
+
+            if (player != null)
+            {
+                // Character selection buttons
+                var buttons = playerListItem.GetComponentsInChildren<Button>();
+                var camGuyButton = buttons[0];
+                var robertButton = buttons[1];
+
+                // Clear previous listeners to prevent duplicate actions
+                camGuyButton.onClick.RemoveAllListeners();
+                robertButton.onClick.RemoveAllListeners();
+
+                // Set up listeners to only affect the local player
+                if (player.isLocalPlayer)
+                {
+                    camGuyButton.onClick.AddListener(() => {
+                        player.CmdSelectCharacter("Cam Guy");
+                    });
+
+                    robertButton.onClick.AddListener(() => {
+                        player.CmdSelectCharacter("Robert");
+                    });
+                }
+
+                // Update button visuals based on selection
+                if (selectedCharacters[i] == "Cam Guy")
+                {
+                    camGuyButton.image.color = Color.green;
+                    robertButton.image.color = Color.white;
+                }
+                else
+                {
+                    camGuyButton.image.color = Color.white;
+                    robertButton.image.color = Color.green;
+                }
+            }
+        }
+    }
+
+    private LobbyPlayer FindLocalPlayer()
+    {
+        var players = FindObjectsOfType<LobbyPlayer>();
+        foreach (var player in players)
+        {
+            if (player.isLocalPlayer)
+            {
+                return player;
+            }
+        }
+        return null;
+    }
+
+    private LobbyPlayer FindPlayerByName(string playerName)
+    {
+        var players = FindObjectsOfType<LobbyPlayer>();
+        foreach (var player in players)
+        {
+            if (player.playerName == playerName)
+            {
+                return player;
+            }
+        }
+        return null;
     }
 }

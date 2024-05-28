@@ -1,7 +1,5 @@
 using UnityEngine;
 using Mirror;
-using System.Collections.Generic;
-
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -47,27 +45,14 @@ public class CustomNetworkManager : NetworkManager
             player = Instantiate(lobbyPlayerPrefab);
         }
         NetworkServer.AddPlayerForConnection(conn, player);
-    }
-
-    public void UpdatePlayerList()
-    {
-        if (isGameplayScene) return;
-
-        var players = FindObjectsOfType<LobbyPlayer>();
-        var playerNames = new List<string>();
-
-        foreach (var player in players)
-        {
-            playerNames.Add(player.playerName);
-        }
-
-        MainMenuManager.UpdatePlayerList(playerNames);
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     public override void OnClientConnect()
     {
         base.OnClientConnect();
         MainMenuManager.LobbyEntered("Client Lobby", false);
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     public override void OnClientDisconnect()
@@ -78,12 +63,14 @@ public class CustomNetworkManager : NetworkManager
         {
             instance.LeaveLobby();
         }
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     public override void OnStartHost()
     {
         base.OnStartHost();
         MainMenuManager.LobbyEntered("Host Lobby", true);
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     public override void OnStopHost()
@@ -118,6 +105,7 @@ public class CustomNetworkManager : NetworkManager
                 instance.LeaveLobby();
             }
         }
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     public override void ServerChangeScene(string newSceneName)
