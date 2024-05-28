@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Button : MonoBehaviour, IInteractable
 {
-    [SerializeField] public string   id;
+    [SerializeField] private string   _id;
     [SerializeField] public Animator animator;
 
     [SerializeReference] public List<IInteractable> interactablesList;
@@ -12,16 +12,17 @@ public class Button : MonoBehaviour, IInteractable
 
     void Start()
     {
-        id = id == "" ? _defaultButtonId : id;
+        _id = _id == "" ? _defaultButtonId : _id;
 
         if (animator == null)
         {
-            Debug.LogWarning($"[Button::Start] animator is null on button {id}");
+            Debug.LogWarning($"[Button::Start] animator is null on button {_id}");
         }
     }
+
     private void OnMouseUpAsButton()
     {
-        Debug.Log($"[Button::OnMouseUpAsButton] Button {id} clicked.");
+        Debug.Log($"[Button::OnMouseUpAsButton] Button {_id} clicked.");
 
         Interact();
     }
@@ -30,14 +31,14 @@ public class Button : MonoBehaviour, IInteractable
     {
         if (interactablesList == null)
         {
-            Debug.LogWarning($"[Button::OnMouseUpAsButton] No interactables given to button {id}.");
+            Debug.LogWarning($"[Button::OnMouseUpAsButton] No interactables given to button {_id}.");
         }
 
         foreach (IInteractable interactable in interactablesList)
         {
             if (interactable == null)
             {
-                Debug.LogWarning($"[Button::OnMouseUpAsButton] interactable null on button {id}.");
+                Debug.LogWarning($"[Button::OnMouseUpAsButton] interactable null on button {_id}.");
                 continue;
             }
 
@@ -47,6 +48,12 @@ public class Button : MonoBehaviour, IInteractable
 
     public string GetId()
     {
-        return id;
+        return _id;
+    }
+
+    public string Id
+    {
+        get { return _id; }
+        set { _id = value; }
     }
 }

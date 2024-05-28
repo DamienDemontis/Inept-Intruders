@@ -15,7 +15,7 @@ public class CamGuyController : MonoBehaviour
     // Debug
     private InputAction _switchRoom;
 
-    private Board buttonBoard;
+    private CamRoom _camRoom;
 
     private void Awake()
     {
@@ -51,37 +51,24 @@ public class CamGuyController : MonoBehaviour
     }
     private void Look(InputAction.CallbackContext context)
     {
-        Debug.Log("[CamGuyController::Look] You are looking good.");
-
-
     }
 
     private void Move(InputAction.CallbackContext context)
     {
-        Debug.Log("[CamGuyController::Move] You are moving well.");
     }
 
     private void Interact(InputAction.CallbackContext context)
     {
-        Debug.Log("[CamGuyController::Interact] You are interacting like a champ!");
     }
 
     private void SwitchToNextRoom(InputAction.CallbackContext context)
     {
-        Debug.Log("[CamGuyController::SwitchToNextRoom] You are switching.");
-
-        if (buttonBoard == null)
+        if (_camRoom == null)
         {
             Debug.LogWarning("[CamGuyController::SwitchToNextRoom] boardButton null.");
             return;
         }
 
-        buttonBoard.SwitchToNextRoom();
-    }
-
-    public Board ButtonBoard
-    {
-        get { return buttonBoard; }
-        set { buttonBoard = value; }
+        _camRoom.SwitchToNextRoom();
     }
 }

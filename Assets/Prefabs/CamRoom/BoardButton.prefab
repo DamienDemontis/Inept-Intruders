@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9c597070c570954580f433164f7fa80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 
+  _id: 
   animator: {fileID: 0}
   interactablesList: []
   _activated: 0

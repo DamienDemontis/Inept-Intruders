@@ -9,15 +9,12 @@ public class Board : MonoBehaviour
     [SerializeField] private GameObject          _buttonPrefab;
     [SerializeField] private DispatchFlag        _dispatchFlag = DispatchFlag.Ordered;
 
-    [Header("Rooms")]
-    [SerializeField] public List<Room> roomsList;
 
     [Header("Debug")]
-    [SerializeField] public List<GameObject> gameObjectInteractablesList = new List<GameObject>();
+    [SerializeField] private List<GameObject> _gameObjectInteractablesList = new List<GameObject>();
 
     private List<BoardButton>   _buttonsList = new List<BoardButton>();
     private Room                _currentRoom;
-    private int                 _currentRoomIndex = 0;
     private List<IInteractable> _currentInteractablesList = new List<IInteractable>();
 
     public enum DispatchFlag
@@ -33,22 +30,9 @@ public class Board : MonoBehaviour
     {
         _lastDispatchFlag = _dispatchFlag;
 
-        if (roomsList != null ) 
+        if (_gameObjectInteractablesList != null)
         {
-            if (roomsList.Count <= 0)
-            {
-                Debug.LogWarning($"[Board::Start] No rooms.");
-            }
-            else
-            {
-                _currentRoom = roomsList[_currentRoomIndex];
-                _currentInteractablesList = roomsList[_currentRoomIndex].InteractablesList;
-                Debug.Log($"[Board::Start] ");
-            }
-        }
-        else if (gameObjectInteractablesList != null)
-        {
-            foreach (GameObject go in gameObjectInteractablesList)
+            foreach (GameObject go in _gameObjectInteractablesList)
             {
                 IInteractable interactable = go.GetComponentInChildren<IInteractable>();
 
@@ -73,11 +57,11 @@ public class Board : MonoBehaviour
             if (buttonComponent != null)
             {
                 buttonComponent.Activated = false;
-                buttonComponent.id = "BoardButton_" + (++idIndex).ToString();
+                buttonComponent.Id = "BoardButton_" + (++idIndex).ToString();
 
                 _buttonsList.Add(buttonComponent);
 
-                Debug.Log($"[Board::Start] Button {buttonComponent.id} added to Board.");
+                Debug.Log($"[Board::Start] Button {buttonComponent.Id} added to Board.");
             }
             else
             {
@@ -102,54 +86,6 @@ public class Board : MonoBehaviour
             DispatchInteractiblesToButtons();
             _lastDispatchFlag = _dispatchFlag;
         }
-    }
-
-    public void SwitchToNextRoom()
-    {
-        if (roomsList == null || roomsList.Count == 0)
-        {
-            Debug.LogWarning("[Board::SwitchToNextRoom] No rooms available to switch.");
-            return;
-        }
-
-        if (_currentRoom == null)
-        {
-            _currentRoom = roomsList[0];
-        }
-        else if (roomsList.Count > (roomsList.IndexOf(_currentRoom) + 1) % roomsList.Count)
-        {
-            _currentRoom = roomsList[(roomsList.IndexOf(_currentRoom) + 1) % roomsList.Count];
-        }
-
-        _currentInteractablesList = _currentRoom.InteractablesList;
-
-        Debug.Log($"[Board::SwitchToNextRoom] Switched to room: {_currentRoom.name}");
-
-        DispatchInteractiblesToButtons();
-    }
-
-    public void SwitchToPreviousRoom()
-    {
-        if (roomsList == null || roomsList.Count == 0)
-        {
-            Debug.LogWarning("[Board::SwitchToPreviousRoom] No rooms available to switch.");
-            return;
-        }
-
-        if (_currentRoom == null)
-        {
-            _currentRoom = roomsList[roomsList.Count - 1];
-        }
-        else
-        {
-            _currentRoom = roomsList[(roomsList.IndexOf(_currentRoom) - 1 + roomsList.Count) % roomsList.Count];
-        }
-
-        _currentInteractablesList = _currentRoom.InteractablesList;
-
-        Debug.Log($"[Board::SwitchToPreviousRoom] Switched to room: {_currentRoom.name}");
-
-        DispatchInteractiblesToButtons();
     }
 
     /// <summary>
@@ -266,4 +202,21 @@ public class Board : MonoBehaviour
             }
         }
     }
+
+    public Room Room
+    {
+        get { return _currentRoom; }
+        set
+        {
+            _currentRoom = value;
+            _currentInteractablesList = _currentRoom.InteractablesList;
+            DispatchInteractiblesToButtons();
+        }
+    }
+
+    //public int CurrentRoomIndex
+    //{
+    //    get { return _currentRoomIndex; }
+    //    set { _currentRoomIndex = value; }
+    //}
 }

@@ -23,11 +23,11 @@ public class BoardButton : Button
 
     private void OnMouseUpAsButton()
     {
-        Debug.Log($"[BoardButton::OnMouseUpAsButton] Button {id} clicked");
+        Debug.Log($"[BoardButton::OnMouseUpAsButton] Button {Id} clicked");
 
         if (animator == null)
         {
-            Debug.LogWarning($"[BoardButton::OnMouseUpAsButton] Animator is null for button {id}.");
+            Debug.LogWarning($"[BoardButton::OnMouseUpAsButton] Animator is null for button {Id}.");
         }
         else
         {
@@ -36,7 +36,7 @@ public class BoardButton : Button
 
         if (!_activated)
         {
-            Debug.Log($"[BoardButton::OnMouseUpAsButton] Button {id} disabled.");
+            Debug.Log($"[BoardButton::OnMouseUpAsButton] Button {Id} disabled.");
             return;
         }
 

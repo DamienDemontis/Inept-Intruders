@@ -12,11 +12,16 @@ public class Monitor : MonoBehaviour, IInteractable
     [SerializeField] private Material      _screenMaterial;
     [SerializeField] private int           _currentCameraIndex = 0;
 
+    [Header("Buttons")]
+    [SerializeField] private MonitorButton _nextButton;
+    [SerializeField] private MonitorButton _previousButton;
+    [SerializeField] private MonitorButton _tabButton;
+
     private Material currentRenderTextureMaterial;
 
-    public List<SurveillanceCamera> _roomSurveillanceCamerasList = new List<SurveillanceCamera>();
-    private SurveillanceCamera _currentCamera;
-    private int _lastCurrentCameraIndex;
+    private List<SurveillanceCamera> _roomSurveillanceCamerasList = new List<SurveillanceCamera>();
+    private SurveillanceCamera       _currentCamera;
+    private int                      _lastCurrentCameraIndex;
 
     void Start()
     {
@@ -118,6 +123,20 @@ public class Monitor : MonoBehaviour, IInteractable
         }
 
         _currentCamera = _roomSurveillanceCamerasList[(++_currentCameraIndex) % _roomSurveillanceCamerasList.Count];
+        _screenMaterial.mainTexture = _currentCamera.CamRenderTexture;
+    }
+
+    public void SwitchToPreviousCamera()
+    {
+        if (_roomSurveillanceCamerasList == null)
+        {
+            Debug.LogError($"[Monitor::SwitchToPreviousCamera] No camera to look at on Monitor {_id}.");
+            return;
+        }
+
+        int newCameraIndex = _currentCameraIndex - 1 < 0 ? 0 : _roomSurveillanceCamerasList.Count + (_currentCameraIndex - 1);
+
+        _currentCamera = _roomSurveillanceCamerasList[(newCameraIndex) % _roomSurveillanceCamerasList.Count];
         _screenMaterial.mainTexture = _currentCamera.CamRenderTexture;
     }
 

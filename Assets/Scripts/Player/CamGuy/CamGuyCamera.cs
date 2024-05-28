@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CamGuyCamera : MonoBehaviour
 {
@@ -10,6 +9,19 @@ public class CamGuyCamera : MonoBehaviour
     [Header("Transition Config")]
     [SerializeField] private float          _transitionDuration = 2.5f;
     [SerializeField] private AnimationCurve _transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Camera Rotation")]
+    [SerializeField] private Vector2 sensitivity = Vector2.zero;
+    [SerializeField] private float   maxRotationSpeed = 40f;
+    [SerializeField] private bool    clampXRotation = true;
+    [SerializeField] private bool    clampYRotation = false;
+    [SerializeField] private Vector2 minRotation = Vector2.zero;
+    [SerializeField] private Vector2 maxRotation = Vector2.zero;
+
+    [Header("References")]
+    [SerializeField] private Transform orientation;
+
+    private Vector2 _cameraRotation = Vector2.zero;
 
     private Transform _target;
     private float     _distanceFromTarget;
@@ -32,8 +44,36 @@ public class CamGuyCamera : MonoBehaviour
             return;
         }
 
-        _basePosition = _camGuy.transform.position + _baseLocalPosition;
-        _baseRotation = _camGuy.transform.rotation;
+        //_basePosition = _camGuy.transform.position + _baseLocalPosition;
+        //_baseRotation = _camGuy.transform.rotation;
+
+        //UpdateCameraRotation();
+    }
+
+    private void Awake()
+    {
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+    }
+
+    private void UpdateCameraRotation()
+    {
+        Vector2 mouseDelta_ = InputManager.Instance.GetMouseDelta();
+        Vector2 mouseDelta = mouseDelta_ * sensitivity * Time.deltaTime;
+        _cameraRotation += new Vector2(-mouseDelta.y, mouseDelta.x);
+
+        if (clampXRotation)
+        {
+            _cameraRotation.x = Mathf.Clamp(_cameraRotation.x, minRotation.x, maxRotation.x);
+        }
+        if (clampYRotation)
+        {
+            _cameraRotation.y = Mathf.Clamp(_cameraRotation.y, minRotation.y, maxRotation.y);
+        }
+
+        Quaternion targetRotation = Quaternion.Euler(_cameraRotation);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
+        orientation.rotation = Quaternion.Euler(0, _cameraRotation.y, 0);
     }
 
     public void StartTransition(Transform target, float distanceFromTarget, float transitionDuration)
