@@ -8,10 +8,9 @@ public class LobbyPlayer : NetworkBehaviour
 
     private void Start()
     {
-        // You can add any initialization code here for the lobby player
         if (isLocalPlayer)
         {
-            CmdSetPlayerName("Player" + netId);
+            CmdSetPlayerName("Player" + (NetworkServer.connections.Count)); // Assign player name based on the join order
         }
     }
 
@@ -19,5 +18,6 @@ public class LobbyPlayer : NetworkBehaviour
     private void CmdSetPlayerName(string name)
     {
         playerName = name;
+        CustomNetworkManager.Instance.UpdatePlayerList();
     }
 }

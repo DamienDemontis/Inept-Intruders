@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using Mirror;
+using System.Collections.Generic;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -9,14 +10,22 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] private GameObject menuScreen, lobbyScreen;
     [SerializeField] private TMP_InputField lobbyInput;
-
     [SerializeField] private TextMeshProUGUI lobbyTitle, lobbyIDText;
     [SerializeField] private Button startGameButton;
+    [SerializeField] private Transform playerListContainer;
+    [SerializeField] private GameObject playerListItemPrefab;
 
     private NetworkManager networkManager;
 
+    private void Awake()
+    {
+        Debug.Log("MainMenuManager Awake called.");
+    }
+
     private void Start()
     {
+        Debug.Log("MainMenuManager Start called.");
+
         RenderSettings.skybox = skyboxMaterial;
 
         // Initialize networkManager in Start
@@ -25,15 +34,23 @@ public class MainMenuManager : MonoBehaviour
         if (networkManager == null)
         {
             Debug.LogError("NetworkManager singleton is not set. Ensure there is a NetworkManager in the scene.");
+            networkManager = FindObjectOfType<NetworkManager>(); // Attempt to find it in the scene
+        }
+
+        if (networkManager != null)
+        {
+            Debug.Log("NetworkManager singleton is set.");
+            OpenMainMenu();
         }
         else
         {
-            OpenMainMenu();
+            Debug.LogError("NetworkManager still not found. Ensure it is correctly set in the scene.");
         }
     }
 
     public void CreateLobby()
     {
+        Debug.Log("CreateLobby called.");
         if (networkManager != null)
         {
             networkManager.StartHost();
@@ -47,12 +64,14 @@ public class MainMenuManager : MonoBehaviour
 
     public void OpenMainMenu()
     {
+        Debug.Log("OpenMainMenu called.");
         CloseAllScreens();
         menuScreen.SetActive(true);
     }
 
     public void OpenLobby()
     {
+        Debug.Log("OpenLobby called.");
         CloseAllScreens();
         lobbyScreen.SetActive(true);
     }
@@ -65,6 +84,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void JoinLobby()
     {
+        Debug.Log("JoinLobby called.");
         string networkAddress = lobbyInput.text;
         if (networkManager != null)
         {
@@ -96,6 +116,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void LeaveLobby()
     {
+        Debug.Log("LeaveLobby called.");
         if (NetworkServer.active && NetworkClient.isConnected)
         {
             networkManager.StopHost();
@@ -109,6 +130,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void StartGame()
     {
+        Debug.Log("StartGame called.");
         if (networkManager != null)
         {
             networkManager.ServerChangeScene("GameplayScene");
@@ -121,6 +143,7 @@ public class MainMenuManager : MonoBehaviour
 
     public static void LobbyEntered(string lobbyName, bool isHost)
     {
+        Debug.Log($"LobbyEntered called with lobbyName: {lobbyName}, isHost: {isHost}");
         var instance = FindObjectOfType<MainMenuManager>();
         if (instance != null)
         {
@@ -131,6 +154,25 @@ public class MainMenuManager : MonoBehaviour
         else
         {
             Debug.LogError("MainMenuManager instance is not found.");
+        }
+    }
+
+    public static void UpdatePlayerList(List<string> playerNames)
+    {
+        Debug.Log("UpdatePlayerList called.");
+        var instance = FindObjectOfType<MainMenuManager>();
+        if (instance != null)
+        {
+            foreach (Transform child in instance.playerListContainer)
+            {
+                Destroy(child.gameObject);
+            }
+
+            foreach (var playerName in playerNames)
+            {
+                var playerListItem = Instantiate(instance.playerListItemPrefab, instance.playerListContainer);
+                playerListItem.GetComponentInChildren<TextMeshProUGUI>().text = playerName;
+            }
         }
     }
 }

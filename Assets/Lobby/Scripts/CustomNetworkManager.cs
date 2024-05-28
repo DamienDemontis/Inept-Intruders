@@ -1,5 +1,7 @@
 using UnityEngine;
 using Mirror;
+using System.Collections.Generic;
+
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -7,13 +9,23 @@ public class CustomNetworkManager : NetworkManager
     public GameObject gameplayPlayerPrefab;
 
     private bool isGameplayScene = false;
+    public static CustomNetworkManager Instance { get; private set; }
 
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        Debug.Log("CustomNetworkManager Awake called.");
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject);
+        }
+
         NetworkClient.OnConnectedEvent += OnClientConnected;
         NetworkClient.OnDisconnectedEvent += OnClientDisconnected;
-        Debug.Log("CustomNetworkManager Awake called. Singleton instance should be set.");
     }
 
     public override void OnDestroy()
@@ -35,6 +47,21 @@ public class CustomNetworkManager : NetworkManager
             player = Instantiate(lobbyPlayerPrefab);
         }
         NetworkServer.AddPlayerForConnection(conn, player);
+    }
+
+    public void UpdatePlayerList()
+    {
+        if (isGameplayScene) return;
+
+        var players = FindObjectsOfType<LobbyPlayer>();
+        var playerNames = new List<string>();
+
+        foreach (var player in players)
+        {
+            playerNames.Add(player.playerName);
+        }
+
+        MainMenuManager.UpdatePlayerList(playerNames);
     }
 
     public override void OnClientConnect()
