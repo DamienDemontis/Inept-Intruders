@@ -34,6 +34,8 @@ public class CamGuyCamera : MonoBehaviour
     private void Start()
     {
         _baseLocalPosition = transform.localPosition;
+        _basePosition = _camGuy.transform.position;
+        _baseRotation = _camGuy.transform.rotation;
     }
 
     private void Update()
@@ -94,13 +96,13 @@ public class CamGuyCamera : MonoBehaviour
     {
         float t = 0.0f;
         Vector3 startingPos    = transform.position;
-        Quaternion startingRot = transform.rotation;
+        //Quaternion startingRot = transform.rotation;
 
         Vector3 directionToTarget = _target.position - transform.position;
         directionToTarget.Normalize();
         Vector3 modifiedTargetPos = _target.position - directionToTarget * _distanceFromTarget;
 
-        Quaternion targetRotation = Quaternion.Inverse(_target.rotation);
+        //Quaternion targetRotation = _target.rotation;
 
         while (t < 1.0f)
         {
@@ -109,13 +111,13 @@ public class CamGuyCamera : MonoBehaviour
             float curveT = _transitionCurve.Evaluate(t);
 
             transform.position = Vector3.Lerp(startingPos, modifiedTargetPos, curveT);
-            transform.rotation = Quaternion.Slerp(startingRot, targetRotation, curveT);
+            //transform.rotation = Quaternion.Slerp(startingRot, targetRotation, curveT);
 
             yield return null;
         }
 
         transform.position = modifiedTargetPos;
-        transform.rotation = targetRotation;
+        //transform.rotation = targetRotation;
     }
 
     IEnumerator ResetTransition()
