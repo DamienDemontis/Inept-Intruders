@@ -62,7 +62,6 @@ public class Monitor : MonoBehaviour, IInteractable
         SetCamera(_currentCameraIndex);
     }
 
-
     private void SetCamera(int cameraIndex)
     {
         if (_roomSurveillanceCamerasList == null)
@@ -114,7 +113,7 @@ public class Monitor : MonoBehaviour, IInteractable
 
         if (_focusedCamera != null)
         {
-            if (this._focusedCamera.transform.position == _camGuyCamera.transform.position)
+            if (Vector3.Distance(this._focusedCamera.transform.position, _camGuyCamera.transform.position) < 1)
             {
                 Debug.Log($"[Monitor::Interact] Resetting camera to base position");
                 _camGuyCamera.ResetToBase(1f);
