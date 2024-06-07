@@ -32,12 +32,6 @@ public class LobbyManager : NetworkBehaviour
     [Server]
     public void UpdatePlayerList()
     {
-        if (!isServer)
-        {
-            Debug.LogWarning("UpdatePlayerList called when server was not active.");
-            return;
-        }
-
         var players = FindObjectsOfType<LobbyPlayer>();
         var playerNames = new List<string>();
         var selectedCharacters = new List<string>();
@@ -46,6 +40,7 @@ public class LobbyManager : NetworkBehaviour
         {
             playerNames.Add(player.playerName);
             selectedCharacters.Add(player.selectedCharacter);
+            Debug.Log($"Player: {player.playerName}, Character: {player.selectedCharacter}");
         }
 
         RpcUpdatePlayerList(playerNames, selectedCharacters);

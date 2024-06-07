@@ -7,6 +7,7 @@ public class CustomNetworkManager : NetworkManager
     public GameObject gameplayPlayerPrefab;
 
     private bool isGameplayScene = false;
+    private int playerCount = 1;
     public static CustomNetworkManager Instance { get; private set; }
 
     private void Awake()
@@ -24,6 +25,11 @@ public class CustomNetworkManager : NetworkManager
 
         NetworkClient.OnConnectedEvent += OnClientConnected;
         NetworkClient.OnDisconnectedEvent += OnClientDisconnected;
+    }
+
+    public int GetNextPlayerNumber()
+    {
+        return playerCount++;
     }
 
     public override void OnDestroy()

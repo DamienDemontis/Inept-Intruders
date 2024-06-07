@@ -13,34 +13,30 @@ public class LobbyPlayer : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdSetPlayerName("Player" + NetworkServer.connections.Count); // Assign player name based on the join order
+            CmdSetPlayerName();
         }
     }
 
     [Command]
-    private void CmdSetPlayerName(string name)
+    private void CmdSetPlayerName()
     {
-        playerName = name;
-        if (isServer)
-        {
-            LobbyManager.Instance.UpdatePlayerList();
-        }
+        playerName = $"Player{CustomNetworkManager.Instance.GetNextPlayerNumber()}";
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     [Command]
     public void CmdSelectCharacter(string character)
     {
+        Debug.Log($"CmdSelectCharacter called for player {playerName} to select {character}");
+
         if (character == "Cam Guy" && IsCamGuyTaken())
         {
-            // If "Cam Guy" is already taken, don't allow selection
+            Debug.Log("Cam Guy is already taken.");
             return;
         }
 
         selectedCharacter = character;
-        if (isServer)
-        {
-            LobbyManager.Instance.UpdatePlayerList();
-        }
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
     private bool IsCamGuyTaken()
@@ -58,6 +54,7 @@ public class LobbyPlayer : NetworkBehaviour
 
     private void OnCharacterChanged(string oldCharacter, string newCharacter)
     {
+        Debug.Log($"Character changed for player {playerName} from {oldCharacter} to {newCharacter}");
         if (isClient)
         {
             LobbyManager.Instance.UpdatePlayerList();

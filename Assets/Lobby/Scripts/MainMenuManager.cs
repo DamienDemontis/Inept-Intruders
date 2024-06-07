@@ -181,12 +181,16 @@ public class MainMenuManager : MonoBehaviour
         for (int i = 0; i < playerNames.Count; i++)
         {
             var playerListItem = Instantiate(playerListItemPrefab, playerListContainer);
-            playerListItem.GetComponentInChildren<TextMeshProUGUI>().text = playerNames[i];
+            var playerNameText = playerListItem.GetComponentInChildren<TextMeshProUGUI>();
+            playerNameText.text = playerNames[i];
 
             var player = FindPlayerByName(playerNames[i]);
 
             if (player != null)
             {
+                // Highlight local player name
+                playerNameText.color = player.isLocalPlayer ? Color.yellow : Color.white;
+
                 // Character selection buttons
                 var buttons = playerListItem.GetComponentsInChildren<Button>();
                 var camGuyButton = buttons[0];
@@ -200,10 +204,12 @@ public class MainMenuManager : MonoBehaviour
                 if (player.isLocalPlayer)
                 {
                     camGuyButton.onClick.AddListener(() => {
+                        Debug.Log($"Local player {player.playerName} selected Cam Guy");
                         player.CmdSelectCharacter("Cam Guy");
                     });
 
                     robertButton.onClick.AddListener(() => {
+                        Debug.Log($"Local player {player.playerName} selected Robert");
                         player.CmdSelectCharacter("Robert");
                     });
                 }
