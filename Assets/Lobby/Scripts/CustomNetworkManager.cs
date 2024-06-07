@@ -1,10 +1,15 @@
 using UnityEngine;
 using Mirror;
+using System.Collections.Generic;
 
 public class CustomNetworkManager : NetworkManager
 {
     public GameObject lobbyPlayerPrefab;
-    public GameObject gameplayPlayerPrefab;
+    public GameObject robertPlayerPrefab;
+    public GameObject camGuyPlayerPrefab;
+
+    public Transform[] robertSpawnPoints;
+    public Transform[] camGuySpawnPoints;
 
     private bool isGameplayScene = false;
     private int playerCount = 1;
@@ -44,14 +49,34 @@ public class CustomNetworkManager : NetworkManager
         GameObject player;
         if (isGameplayScene)
         {
-            player = Instantiate(gameplayPlayerPrefab);
+            player = InstantiatePlayerForGameplay(conn);
         }
         else
         {
             player = Instantiate(lobbyPlayerPrefab);
         }
         NetworkServer.AddPlayerForConnection(conn, player);
-        LobbyManager.Instance.UpdatePlayerList();
+        LobbyManager.Instance.AddPlayer(player.GetComponent<LobbyPlayer>());
+    }
+
+    private GameObject InstantiatePlayerForGameplay(NetworkConnectionToClient conn)
+    {
+        var lobbyPlayer = conn.identity.GetComponent<LobbyPlayer>();
+        GameObject playerPrefab;
+        Transform spawnPoint;
+
+        if (lobbyPlayer.selectedCharacter == "Cam Guy")
+        {
+            playerPrefab = camGuyPlayerPrefab;
+            spawnPoint = camGuySpawnPoints[0];
+        }
+        else
+        {
+            playerPrefab = robertPlayerPrefab;
+            spawnPoint = robertSpawnPoints[0];
+        }
+
+        return Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
     }
 
     public override void OnClientConnect()

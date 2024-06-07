@@ -46,6 +46,8 @@ public class MainMenuManager : MonoBehaviour
         {
             Debug.LogError("NetworkManager still not found. Ensure it is correctly set in the scene.");
         }
+
+        startGameButton.onClick.AddListener(OnStartGameButtonClicked);
     }
 
     public void CreateLobby()
@@ -133,11 +135,24 @@ public class MainMenuManager : MonoBehaviour
         Debug.Log("StartGame called.");
         if (networkManager != null)
         {
-            networkManager.ServerChangeScene("GameplayScene");
+            networkManager.ServerChangeScene("R1 - Intro");
         }
         else
         {
             Debug.LogError("NetworkManager singleton is not set. Cannot start game.");
+        }
+    }
+
+    private void OnStartGameButtonClicked()
+    {
+        Debug.Log("StartGameButton clicked.");
+        if (NetworkServer.active)
+        {
+            StartGame();
+        }
+        else
+        {
+            Debug.LogError("Only the host can start the game.");
         }
     }
 
@@ -148,7 +163,8 @@ public class MainMenuManager : MonoBehaviour
         if (instance != null)
         {
             instance.lobbyTitle.text = "Lobby";
-            instance.startGameButton.gameObject.SetActive(isHost);
+            Debug.Log($"Setting startGameButton active: {isHost}");
+            instance.startGameButton.gameObject.SetActive(true);
             instance.OpenLobby();
             instance.UpdatePlayerList(); // Update the player list when entering the lobby
         }

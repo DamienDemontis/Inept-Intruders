@@ -45,4 +45,10 @@ public class LobbyManager : NetworkBehaviour
 
         RpcUpdatePlayerList(playerNames, selectedCharacters);
     }
+
+    [Server]
+    public void AddPlayer(LobbyPlayer player)
+    {
+        UpdatePlayerList();
+    }
 }
