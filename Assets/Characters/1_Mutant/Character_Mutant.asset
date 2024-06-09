@@ -17,5 +17,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: c5e3aabfcecf3614a947ec31b8b4cb4c, type: 3}
   introPrefab: {fileID: 919132149155446097, guid: d82b62a0c7199b247a7086eea5c4bf00,
     type: 3}
-  gameplayPrefab: {fileID: 37407643323386020, guid: 8935789bd413573419fa49f6379675d7,
+  gameplayPrefab: {fileID: 3395929662484828436, guid: 8968dd61fa7c8f84c8b9e6892eb6b716,
     type: 3}
