@@ -4585,7 +4585,10 @@ MonoBehaviour:
   timeInterpolationGui: 0
   lobbyPlayerPrefab: {fileID: 8199280240585333655, guid: 2f7124b55f08d984d85d7a5ddfa8bbd8,
     type: 3}
-  gameplayPlayerPrefab: {fileID: 0}
+  robertPlayerPrefab: {fileID: 0}
+  camGuyPlayerPrefab: {fileID: 0}
+  robertSpawnPoints: []
+  camGuySpawnPoints: []
 --- !u!114 &2120432048
 MonoBehaviour:
   m_ObjectHideFlags: 0

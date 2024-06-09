@@ -75,6 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1002061893063225292}
   - component: {fileID: 4458350216633325284}
+  - component: {fileID: 1049170721888490113}
   m_Layer: 0
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -122,6 +123,23 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1049170721888490113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478464953390298486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6f3bf89aa97405989c802ba270f815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  clientAuthority: 0
+  animator: {fileID: 4458350216633325284}
 --- !u!1 &611806741140146785
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,6 +671,7 @@ GameObject:
   - component: {fileID: 8701143100849577784}
   - component: {fileID: 3681302648097008473}
   - component: {fileID: 67656490546810344}
+  - component: {fileID: 8750914245441781766}
   m_Layer: 3
   m_Name: Player
   m_TagString: RobertPlayer
@@ -758,6 +777,40 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0.05}
+--- !u!114 &8750914245441781766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2013659082260555983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0
+  target: {fileID: 2056557781924368162}
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  onlySyncOnChange: 1
+  compressRotation: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  coordinateSpace: 0
+  sendIntervalMultiplier: 1
+  timelineOffset: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
+  onlySyncOnChangeCorrectionMultiplier: 2
+  rotationSensitivity: 0.01
+  positionPrecision: 0.01
+  scalePrecision: 0.01
 --- !u!1 &2085737447735513487
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1253,7 @@ GameObject:
   - component: {fileID: 8666416274078167944}
   m_Layer: 0
   m_Name: RobertPlayer
-  m_TagString: Untagged
+  m_TagString: RobertPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1399,7 +1452,7 @@ Transform:
   m_GameObject: {fileID: 2588150184458403971}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00044531818, y: 0.9987348, z: -0.04947774, w: -0.008988837}
-  m_LocalPosition: {x: 0.038756147, y: 2.61009, z: 4.3107147}
+  m_LocalPosition: {x: 0.038756147, y: 1.61009, z: 0.3107145}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -12,6 +12,7 @@ public class CustomNetworkManager : NetworkManager
     public Transform[] camGuySpawnPoints;
 
     private bool isGameplayScene = false;
+    private bool isSceneChanging = false;
     private int playerCount = 1;
     public static CustomNetworkManager Instance { get; private set; }
 
@@ -46,37 +47,48 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnectionToClient conn)
     {
-        GameObject player;
         if (isGameplayScene)
         {
-            player = InstantiatePlayerForGameplay(conn);
+            var lobbyPlayer = conn.identity.GetComponent<LobbyPlayer>();
+            if (lobbyPlayer != null)
+            {
+                GameObject playerPrefab;
+                Transform spawnPoint;
+
+                if (lobbyPlayer.selectedCharacter == "Cam Guy")
+                {
+                    playerPrefab = camGuyPlayerPrefab;
+                    spawnPoint = GetSpawnPoint(camGuySpawnPoints);
+                }
+                else
+                {
+                    playerPrefab = robertPlayerPrefab;
+                    spawnPoint = GetSpawnPoint(robertSpawnPoints);
+                }
+
+                var player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+                NetworkServer.AddPlayerForConnection(conn, player);
+            }
         }
         else
         {
-            player = Instantiate(lobbyPlayerPrefab);
+            var lobbyPlayer = Instantiate(lobbyPlayerPrefab);
+            NetworkServer.AddPlayerForConnection(conn, lobbyPlayer);
         }
-        NetworkServer.AddPlayerForConnection(conn, player);
-        LobbyManager.Instance.AddPlayer(player.GetComponent<LobbyPlayer>());
+        LobbyManager.Instance.UpdatePlayerList();
     }
 
-    private GameObject InstantiatePlayerForGameplay(NetworkConnectionToClient conn)
+    private Transform GetSpawnPoint(Transform[] spawnPoints)
     {
-        var lobbyPlayer = conn.identity.GetComponent<LobbyPlayer>();
-        GameObject playerPrefab;
-        Transform spawnPoint;
-
-        if (lobbyPlayer.selectedCharacter == "Cam Guy")
+        foreach (var spawnPoint in spawnPoints)
         {
-            playerPrefab = camGuyPlayerPrefab;
-            spawnPoint = camGuySpawnPoints[0];
+            if (!spawnPoint.gameObject.activeInHierarchy)
+            {
+                spawnPoint.gameObject.SetActive(true);
+                return spawnPoint;
+            }
         }
-        else
-        {
-            playerPrefab = robertPlayerPrefab;
-            spawnPoint = robertSpawnPoints[0];
-        }
-
-        return Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation);
+        return spawnPoints[0]; // Default fallback
     }
 
     public override void OnClientConnect()
@@ -141,8 +153,21 @@ public class CustomNetworkManager : NetworkManager
 
     public override void ServerChangeScene(string newSceneName)
     {
-        isGameplayScene = (newSceneName == "GameplayScene");
+        if (isSceneChanging)
+        {
+            Debug.LogError("Scene change is already in progress for " + newSceneName);
+            return;
+        }
+
+        isSceneChanging = true;
+        isGameplayScene = (newSceneName == "R1 - Intro");
         base.ServerChangeScene(newSceneName);
+    }
+
+    public override void OnServerSceneChanged(string sceneName)
+    {
+        base.OnServerSceneChanged(sceneName);
+        isSceneChanging = false;  // Reset the flag when the scene change is complete
     }
 
     private void OnClientConnected()
