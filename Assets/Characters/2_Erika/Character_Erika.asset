@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Character_Erika
   m_EditorClassIdentifier: 
   id: 2
-  displayName: Erika
-  icon: {fileID: 21300000, guid: cdf28edf98f8f414c86979a4dc07b1b4, type: 3}
-  introPrefab: {fileID: 6439293245699153084, guid: 712eaaa6122d37b4b8efa14a252494b3,
+  displayName: CamGuy
+  icon: {fileID: 21300000, guid: 48652c2da3ae5924fabf1568f756a660, type: 3}
+  introPrefab: {fileID: 919132149155446097, guid: 9131a68e81267ca45994accee756c84d,
     type: 3}
   gameplayPrefab: {fileID: 4296044924856737924, guid: 301cebf8eacff4b4a83bf8f95afafb31,
     type: 3}
