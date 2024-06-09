@@ -2,6 +2,8 @@ using System.Threading.Tasks;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using UnityEngine;
+using ParrelSync;
+
 
 public enum AuthState
 {
@@ -16,6 +18,16 @@ public static class AuthenticationWrapper
 {
     public static AuthState AuthorizationState { get; private set; } = AuthState.NotAuthenticated;
 
+    static AuthenticationWrapper()
+    {
+        #if UNITY_EDITOR
+        if (ParrelSync.ClonesManager.IsClone())
+        {
+            string customArgument = ParrelSync.ClonesManager.GetArgument();
+            AuthenticationService.Instance.SwitchProfile($"Clone_{customArgument}_Profile");
+        }
+        #endif
+    }
     public static async Task<AuthState> DoAuth(int tries = 5)
     {
         //If we are already authenticated, just return Auth
