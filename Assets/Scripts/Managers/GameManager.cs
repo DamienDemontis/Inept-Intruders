@@ -39,12 +39,26 @@ public class GameManager : MonoBehaviour
         StartCoroutine(FadeIn());
 
         GameObject robertPlayerObject = GameObject.FindGameObjectWithTag("RobertPlayer");
-        _robertReferences = robertPlayerObject.GetComponent<RobertReferences>();
+        if (robertPlayerObject != null)
+        {
+            _robertReferences = robertPlayerObject.GetComponent<RobertReferences>();
+            if (_robertReferences == null)
+            {
+                Debug.LogError("RobertReferences component not found on the RobertPlayer GameObject.");
+                return;
+            }
+        }
+        else
+        {
+            Debug.LogError("GameObject with tag 'RobertPlayer' not found.");
+            return;
+        }
 
         if (PlayerPrefs.HasKey("roomIndex") && PlayerPrefs.GetInt("roomIndex") == roomIndex)
         {
             LoadLastCheckpoint();
-        } else
+        }
+        else
         {
             PlayerPrefs.SetInt("roomIndex", roomIndex);
             SaveLastCheckpoint(0);

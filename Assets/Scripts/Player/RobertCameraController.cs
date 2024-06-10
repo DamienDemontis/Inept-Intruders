@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class RobertCameraController : MonoBehaviour
+public class RobertCameraController : NetworkBehaviour
 {
     [Header("Camera Rotation")]
     [SerializeField] private Vector2 sensitivity = Vector2.zero;
@@ -14,6 +15,8 @@ public class RobertCameraController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform orientation;
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private AudioListener playerAudioSource;
     
     private Vector2 _cameraRotation = Vector2.zero;
 
@@ -23,8 +26,19 @@ public class RobertCameraController : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void Start()
+    {
+        if (!IsOwner)
+        {
+            playerCamera.enabled = false;
+            playerAudioSource.enabled = false;
+            return;
+        }
+    }
+
     private void Update()
     {
+        if (!IsOwner) return;
         UpdateCameraRotation();
     }
 

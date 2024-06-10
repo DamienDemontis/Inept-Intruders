@@ -894,6 +894,8 @@ MonoBehaviour:
   minRotation: {x: -40, y: -180}
   maxRotation: {x: 60, y: 180}
   orientation: {fileID: 2056557781924368162}
+  playerCamera: {fileID: 5675817930833827134}
+  playerAudioSource: {fileID: 2639980344929497809}
 --- !u!1 &2135493945680574636
 GameObject:
   m_ObjectHideFlags: 0
