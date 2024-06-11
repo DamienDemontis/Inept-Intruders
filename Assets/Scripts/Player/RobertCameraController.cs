@@ -26,11 +26,11 @@ public class RobertCameraController : NetworkBehaviour
         Cursor.visible = false;
     }
 
-    private void Start()
+    private void OnNetworkSpawn()
     {
         if (!IsOwner)
         {
-            playerCamera.enabled = false;
+            playerCamera.gameObject.SetActive(false);
             playerAudioSource.enabled = false;
             return;
         }
@@ -58,10 +58,9 @@ public class RobertCameraController : NetworkBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(_cameraRotation);
         transform.rotation = targetRotation;
-        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
         orientation.rotation = Quaternion.Euler(0, _cameraRotation.y, 0);
     }
-    
+
     public void ForceYRotation(float angleY)
     {
         _cameraRotation.y = angleY;

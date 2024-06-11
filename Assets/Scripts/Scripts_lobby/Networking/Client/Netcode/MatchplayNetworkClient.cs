@@ -151,7 +151,7 @@ public class MatchplayNetworkClient : IDisposable
         // If we are already on the main menu then it means we timed-out
         if (networkManager.IsConnectedClient)
         {
-            // networkManager.Shutdown();
+            networkManager.Shutdown();
         }
 
         OnLocalDisconnection?.Invoke(DisconnectReason.Reason);
