@@ -47,7 +47,7 @@ public class HostSingleton : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Shutdown();
+        Shutdown();
     }
 
     public async Task<bool> StartHostAsync()

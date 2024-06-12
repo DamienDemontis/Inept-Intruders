@@ -248,7 +248,7 @@ public class MatchplayNetworkServer : IDisposable
 
         if (networkManager.IsListening)
         {
-            // networkManager.Shutdown();
+            networkManager.Shutdown();
         }
     }
 }
