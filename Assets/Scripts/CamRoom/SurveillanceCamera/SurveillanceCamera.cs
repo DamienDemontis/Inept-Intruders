@@ -13,7 +13,7 @@ public class SurveillanceCamera : MonoBehaviour
 
     [Header("Movement Settings")]
     [SerializeField] private float _rotationSpeed = 10f;
-    [SerializeField] private float _zoomSpeed = 1f;
+    [SerializeField] private float _zoomSpeed = 1.1f;
     [SerializeField] private float _minFOV = 15f;
     [SerializeField] private float _maxFOV = 120f;
 
