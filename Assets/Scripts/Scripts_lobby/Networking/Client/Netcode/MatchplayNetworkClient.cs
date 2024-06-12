@@ -76,7 +76,7 @@ public class MatchplayNetworkClient : IDisposable
     public void DisconnectClient()
     {
         DisconnectReason.SetDisconnectReason(ConnectStatus.UserRequestedDisconnect);
-        // NetworkShutdown();
+        NetworkShutdown();
     }
 
     private void ConnectClient()
@@ -137,7 +137,7 @@ public class MatchplayNetworkClient : IDisposable
 
         if (clientId != 0 && clientId != networkManager.LocalClientId) { return; }
 
-        // NetworkShutdown();
+        NetworkShutdown();
     }
 
     private void NetworkShutdown()
