@@ -1,10 +1,10 @@
+using Cinemachine;
 using Unity.Netcode;
 using UnityEngine;
 
 public class CamGuyPlayerNetworkActivator : NetworkBehaviour
 {
-    [SerializeField] private Camera playerCamera;
-    [SerializeField] private AudioListener playerAudioListener;
+    [SerializeField] private CinemachineVirtualCamera playerVirtualCamera;
 
     public override void OnNetworkSpawn()
     {
@@ -21,27 +21,17 @@ public class CamGuyPlayerNetworkActivator : NetworkBehaviour
 
     private void ActivatePlayerCamera()
     {
-        if (playerCamera != null)
+        if (playerVirtualCamera != null)
         {
-            playerCamera.enabled = true;
-        }
-
-        if (playerAudioListener != null)
-        {
-            playerAudioListener.enabled = true;
+            playerVirtualCamera.enabled = true;
         }
     }
 
     private void DeactivatePlayerCamera()
     {
-        if (playerCamera != null)
+        if (playerVirtualCamera != null)
         {
-            playerCamera.enabled = false;
-        }
-
-        if (playerAudioListener != null)
-        {
-            playerAudioListener.enabled = false;
+            playerVirtualCamera.enabled = false;
         }
     }
 }

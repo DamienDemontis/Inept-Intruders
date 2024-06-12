@@ -5,7 +5,6 @@ using UnityEngine;
 public class RobertPlayerNetworkActivator : NetworkBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera playerVirtualCamera;
-    [SerializeField] private AudioListener playerAudioListener;
 
     public override void OnNetworkSpawn()
     {
@@ -26,11 +25,6 @@ public class RobertPlayerNetworkActivator : NetworkBehaviour
         {
             playerVirtualCamera.enabled = true;
         }
-
-        if (playerAudioListener != null)
-        {
-            playerAudioListener.enabled = true;
-        }
     }
 
     private void DeactivatePlayerCamera()
@@ -38,11 +32,6 @@ public class RobertPlayerNetworkActivator : NetworkBehaviour
         if (playerVirtualCamera != null)
         {
             playerVirtualCamera.enabled = false;
-        }
-
-        if (playerAudioListener != null)
-        {
-            playerAudioListener.enabled = false;
         }
     }
 }

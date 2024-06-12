@@ -28,18 +28,6 @@ public class RobertCameraController : NetworkBehaviour
         Cursor.visible = false;
     }
 
-    private void OnNetworkSpawn()
-    {
-        Debug.Log("IsOwner (RobertCameraController.cs) == " + IsOwner);
-        if (IsOwner)
-        {
-            Debug.Log("I activated my player Audio listener and Camera");
-            playerCamera.gameObject.SetActive(true);
-            playerAudioSource.enabled = true;
-            return;
-        }
-    }
-
     private void Update()
     {
         if (!IsOwner) return;
