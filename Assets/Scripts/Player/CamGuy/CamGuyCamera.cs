@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public class CamGuyCamera : MonoBehaviour
+public class CamGuyCamera : NetworkBehaviour
 {
     [SerializeField] private CamGuy _camGuy;
 
@@ -20,7 +21,8 @@ public class CamGuyCamera : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform orientation;
-
+    [SerializeField] private Camera playerCamera;
+    [SerializeField] private AudioListener playerAudioSource;
     private Vector2 _cameraRotation = Vector2.zero;
 
     private Transform _target;
@@ -41,6 +43,17 @@ public class CamGuyCamera : MonoBehaviour
         }
     }
 
+    private void OnNetworkSpawn()
+    {
+        Debug.Log("IsOwner (CamGuyCamera.cs) == " + IsOwner);
+        if (IsOwner)
+        {
+            Debug.Log("I activated my player Audio listener and Camera");
+            playerCamera.gameObject.SetActive(true);
+            playerAudioSource.enabled = true;
+            return;
+        }
+    }
     public void StartTransition(Transform target, float distanceFromTarget, float transitionDuration)
     {
         _target             = target;

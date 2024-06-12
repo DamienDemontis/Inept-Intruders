@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
-public class RobertMovementController : MonoBehaviour
+public class RobertMovementController : NetworkBehaviour
 {
     [Header("Movement")]
     [SerializeField, Tooltip("Movement speed")] private float moveSpeed = 2.0f;
@@ -44,6 +45,15 @@ public class RobertMovementController : MonoBehaviour
 
     private void OnEnable()
     {
+        InputManager inst = InputManager.Instance;
+
+        if (inst == null)
+        {
+            Debug.LogWarning("InputManager is null");
+            return;
+        }
+
+
         InputManager.Instance.InputControls.Game.Move.started += OnMove;
         InputManager.Instance.InputControls.Game.Move.performed += OnMove;
         InputManager.Instance.InputControls.Game.Move.canceled += OnMove;
@@ -52,6 +62,14 @@ public class RobertMovementController : MonoBehaviour
 
     private void OnDisable()
     {
+        InputManager inst = InputManager.Instance;
+
+        if (inst == null)
+        {
+            Debug.LogWarning("InputManager is null");
+            return;
+        }
+
         InputManager.Instance.InputControls.Game.Move.started -= OnMove;
         InputManager.Instance.InputControls.Game.Move.performed -= OnMove;
         InputManager.Instance.InputControls.Game.Move.canceled -= OnMove;
@@ -60,6 +78,11 @@ public class RobertMovementController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("IsOwner (RobertMovementController.cs) == " + IsOwner);
+        if (!IsOwner)
+        {
+            return;
+        }
         if (transform.position.y < -10.0f)
         {
             ForcePosition(_startingPos);

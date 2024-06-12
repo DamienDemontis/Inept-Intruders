@@ -843,7 +843,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2085737447735513487}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
   m_Name: 
@@ -1243,6 +1243,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5086858803657446295}
   - component: {fileID: 3395929662484828436}
+  - component: {fileID: 8155911842884828626}
   m_Layer: 0
   m_Name: RobertPlayer
   m_TagString: Untagged
@@ -1288,6 +1289,20 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &8155911842884828626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2441472691823219032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69511ebaefaf2794ca64d635c5a275aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerVirtualCamera: {fileID: 1208269306761923421}
+  playerAudioListener: {fileID: 2639980344929497809}
 --- !u!1 &2443123055662219786
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,7 +1491,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2588150184458403971}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &1874799845098198262
 MonoBehaviour:
   m_ObjectHideFlags: 0

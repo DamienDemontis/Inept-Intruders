@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2901597667992144798}
   - component: {fileID: 6021002095257296194}
   - component: {fileID: 4583037978737686928}
+  - component: {fileID: 5819693370228612508}
   m_Layer: 0
   m_Name: CamGuyPlayer
   m_TagString: Untagged
@@ -82,6 +83,20 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &5819693370228612508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78899508018988897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49711c1a3938764e9c6effa866f696b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCamera: {fileID: 33514894684426765}
+  playerAudioListener: {fileID: 8079902093849857769}
 --- !u!1 &1895431674575132951
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +369,8 @@ MonoBehaviour:
   minRotation: {x: -40, y: -180}
   maxRotation: {x: 60, y: 180}
   orientation: {fileID: 5903814015251628788}
+  playerCamera: {fileID: 33514894684426765}
+  playerAudioSource: {fileID: 8079902093849857769}
 --- !u!20 &33514894684426765
 Camera:
   m_ObjectHideFlags: 0
@@ -361,7 +378,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7142081906166185248}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
@@ -412,7 +429,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7142081906166185248}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &7143729449905748711
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using Cinemachine;
+
 
 public class RobertCameraController : NetworkBehaviour
 {
@@ -15,7 +17,7 @@ public class RobertCameraController : NetworkBehaviour
 
     [Header("References")]
     [SerializeField] private Transform orientation;
-    [SerializeField] private Camera playerCamera;
+    [SerializeField] private CinemachineVirtualCamera playerCamera;
     [SerializeField] private AudioListener playerAudioSource;
     
     private Vector2 _cameraRotation = Vector2.zero;
@@ -28,11 +30,12 @@ public class RobertCameraController : NetworkBehaviour
 
     private void OnNetworkSpawn()
     {
-        if (!IsOwner)
+        Debug.Log("IsOwner (RobertCameraController.cs) == " + IsOwner);
+        if (IsOwner)
         {
-            Debug.Log("I deactivated an Audio Source");
-            playerCamera.gameObject.SetActive(false);
-            playerAudioSource.enabled = false;
+            Debug.Log("I activated my player Audio listener and Camera");
+            playerCamera.gameObject.SetActive(true);
+            playerAudioSource.enabled = true;
             return;
         }
     }
