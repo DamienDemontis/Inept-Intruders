@@ -30,6 +30,7 @@ public class RobertCameraController : NetworkBehaviour
     {
         if (!IsOwner)
         {
+            Debug.Log("I deactivated an Audio Source");
             playerCamera.gameObject.SetActive(false);
             playerAudioSource.enabled = false;
             return;
