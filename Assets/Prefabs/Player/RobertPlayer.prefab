@@ -841,9 +841,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a4d1f456d96464448ece7390aeb582f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 1
-  smoothing: 0.5
-  maxRotationSpeed: 200
+  sensitivity: 6
+  smoothing: 1
   clampXRotation: 1
   clampYRotation: 0
   minRotation: {x: -40, y: -180}

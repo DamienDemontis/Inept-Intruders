@@ -1,0 +1,157 @@
+fileFormatVersion: 2
+guid: b4d247b02d777314098d5cf66c75f7f1
+timeCreated: 1479948774
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: SemiTrailer_mdl
+    100004: SemiTrailer_mdl_LOD1
+    100006: SemiTrailer_mdl_LOD2
+    100008: SemiTrailer_mdl_LOD3
+    100010: SemiTrailer_mdl_LOD4
+    100012: SemiTrailer_LOD0 SemiTrailer_mdl Props
+    100014: SemiTrailer_LOD1 SemiTrailer_mdl Props
+    100016: SemiTrailer_LOD2 SemiTrailer_mdl Props
+    100018: SemiTrailer_LOD3 SemiTrailer_mdl Props
+    100020: SemiTrailer_LOD4 SemiTrailer_mdl Props
+    100022: SemiTrailer_LOD0
+    100024: SemiTrailer_LOD1
+    100026: SemiTrailer_LOD2
+    100028: SemiTrailer_LOD3
+    100030: SemiTrailer_LOD4
+    400000: //RootNode
+    400002: SemiTrailer_mdl
+    400004: SemiTrailer_mdl_LOD1
+    400006: SemiTrailer_mdl_LOD2
+    400008: SemiTrailer_mdl_LOD3
+    400010: SemiTrailer_mdl_LOD4
+    400012: SemiTrailer_LOD0 SemiTrailer_mdl Props
+    400014: SemiTrailer_LOD1 SemiTrailer_mdl Props
+    400016: SemiTrailer_LOD2 SemiTrailer_mdl Props
+    400018: SemiTrailer_LOD3 SemiTrailer_mdl Props
+    400020: SemiTrailer_LOD4 SemiTrailer_mdl Props
+    400022: SemiTrailer_LOD0
+    400024: SemiTrailer_LOD1
+    400026: SemiTrailer_LOD2
+    400028: SemiTrailer_LOD3
+    400030: SemiTrailer_LOD4
+    2300000: //RootNode
+    2300002: SemiTrailer_mdl
+    2300004: SemiTrailer_mdl_LOD1
+    2300006: SemiTrailer_mdl_LOD2
+    2300008: SemiTrailer_mdl_LOD3
+    2300010: SemiTrailer_mdl_LOD4
+    2300012: SemiTrailer_LOD0 SemiTrailer_mdl Props
+    2300014: SemiTrailer_LOD1 SemiTrailer_mdl Props
+    2300016: SemiTrailer_LOD2 SemiTrailer_mdl Props
+    2300018: SemiTrailer_LOD3 SemiTrailer_mdl Props
+    2300020: SemiTrailer_LOD4 SemiTrailer_mdl Props
+    2300022: SemiTrailer_LOD0
+    2300024: SemiTrailer_LOD1
+    2300026: SemiTrailer_LOD2
+    2300028: SemiTrailer_LOD3
+    2300030: SemiTrailer_LOD4
+    3300000: //RootNode
+    3300002: SemiTrailer_mdl
+    3300004: SemiTrailer_mdl_LOD1
+    3300006: SemiTrailer_mdl_LOD2
+    3300008: SemiTrailer_mdl_LOD3
+    3300010: SemiTrailer_mdl_LOD4
+    3300012: SemiTrailer_LOD0 SemiTrailer_mdl Props
+    3300014: SemiTrailer_LOD1 SemiTrailer_mdl Props
+    3300016: SemiTrailer_LOD2 SemiTrailer_mdl Props
+    3300018: SemiTrailer_LOD3 SemiTrailer_mdl Props
+    3300020: SemiTrailer_LOD4 SemiTrailer_mdl Props
+    3300022: SemiTrailer_LOD0
+    3300024: SemiTrailer_LOD1
+    3300026: SemiTrailer_LOD2
+    3300028: SemiTrailer_LOD3
+    3300030: SemiTrailer_LOD4
+    4300000: SemiTrailer_mdl
+    4300002: SemiTrailer_mdl_LOD3
+    4300004: SemiTrailer_mdl_LOD2
+    4300006: SemiTrailer_mdl_LOD1
+    4300008: SemiTrailer_mdl_LOD4
+    4300010: SemiTrailer_LOD4 SemiTrailer_mdl Props
+    4300012: SemiTrailer_LOD3 SemiTrailer_mdl Props
+    4300014: SemiTrailer_LOD2 SemiTrailer_mdl Props
+    4300016: SemiTrailer_LOD1 SemiTrailer_mdl Props
+    4300018: SemiTrailer_LOD0 SemiTrailer_mdl Props
+    4300020: SemiTrailer_LOD0
+    4300022: SemiTrailer_LOD1
+    4300024: SemiTrailer_LOD2
+    4300026: SemiTrailer_LOD3
+    4300028: SemiTrailer_LOD4
+    9500000: //RootNode
+    20500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages:
+    - 0.25
+    - 0.125
+    - 0.0625
+    - 0.03125
+    - 0.01
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 1
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
