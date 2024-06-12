@@ -45,6 +45,14 @@ public class RobertCameraController : NetworkBehaviour
 
     private void UpdateCameraRotation()
     {
+        InputManager inst = InputManager.Instance;
+
+        if (inst == null)
+        {
+            Debug.LogWarning("InputManager is null");
+            return;
+        }
+
         Vector2 mouseDelta = InputManager.Instance.GetMouseDelta() * sensitivity * Time.deltaTime;
         _cameraRotation += new Vector2(-mouseDelta.y, mouseDelta.x);
 
