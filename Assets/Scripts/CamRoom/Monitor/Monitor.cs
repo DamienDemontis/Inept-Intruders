@@ -11,6 +11,7 @@ public class Monitor : MonoBehaviour, IInteractable
     [SerializeField] private CamGuyCamera  _camGuyCamera;
     [SerializeField] private Material      _screenMaterial;
     [SerializeField] private int           _currentCameraIndex = 0;
+    [SerializeField] private Transform     _focusedCamera;
 
     [Header("Buttons")]
     [SerializeField] private MonitorButton _nextButton;
@@ -61,7 +62,6 @@ public class Monitor : MonoBehaviour, IInteractable
         SetCamera(_currentCameraIndex);
     }
 
-
     private void SetCamera(int cameraIndex)
     {
         if (_roomSurveillanceCamerasList == null)
@@ -111,7 +111,23 @@ public class Monitor : MonoBehaviour, IInteractable
             return;
         }
 
-        _camGuyCamera.StartTransition(this.transform, 0.9f, 1f);
+        if (_focusedCamera != null)
+        {
+            if (Vector3.Distance(this._focusedCamera.transform.position, _camGuyCamera.transform.position) < 1)
+            {
+                Debug.Log($"[Monitor::Interact] Resetting camera to base position");
+                _camGuyCamera.ResetToBase(1f);
+            }
+            else
+            {
+                Debug.Log($"[Monitor::Interact] Focusing on monitor");
+                _camGuyCamera.StartTransition(this._focusedCamera.transform, 0, 1f);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"[Monitor::Interact] No focused camera on Monitor {_id}, cannot position in front of monitor");
+        }
     }
 
     public void SwitchToNextCamera()
