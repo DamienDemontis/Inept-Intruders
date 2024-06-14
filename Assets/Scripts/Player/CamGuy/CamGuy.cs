@@ -35,6 +35,8 @@ public class CamGuy : MonoBehaviour
     //            camGuyController.ButtonBoard = camRoom.board;
     //        }
     //    }
+
+
     }
 
     void Update()

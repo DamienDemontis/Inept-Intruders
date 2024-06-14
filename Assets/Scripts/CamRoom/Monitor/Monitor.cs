@@ -9,6 +9,7 @@ public class Monitor : MonoBehaviour, IInteractable
     [Header("Camera")]
     [SerializeField] private RenderTexture _screenRenderTexture;
     [SerializeField] private CamGuyCamera  _camGuyCamera;
+    [SerializeField] private Camera        camGuyCameraRaw;
     [SerializeField] private Material      _screenMaterial;
     [SerializeField] private int           _currentCameraIndex = 0;
     [SerializeField] private Transform     _focusedCamera;
@@ -117,11 +118,19 @@ public class Monitor : MonoBehaviour, IInteractable
             {
                 Debug.Log($"[Monitor::Interact] Resetting camera to base position");
                 _camGuyCamera.ResetToBase(1f);
+                if (camGuyCameraRaw != null)
+                {
+                    _currentCamera.CamGuyCamera = null;
+                }
             }
             else
             {
                 Debug.Log($"[Monitor::Interact] Focusing on monitor");
                 _camGuyCamera.StartTransition(this._focusedCamera.transform, 0, 1f);
+                if (camGuyCameraRaw != null)
+                {
+                    _currentCamera.CamGuyCamera = camGuyCameraRaw;
+                }
             }
         }
         else

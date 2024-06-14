@@ -7,9 +7,10 @@ public class SurveillanceCamera : MonoBehaviour
     [SerializeField] private string _id;
 
     [Header("Camera Config")]
-    [SerializeField] private Camera     _camera;
-    [SerializeField] private Vector2Int _resolution = new Vector2Int(1920, 1080);
-    [SerializeField] private int        _framerate = 24;
+    [SerializeField] private Camera       _camera;
+    [SerializeField] private Vector2Int   _resolution = new Vector2Int(1920, 1080);
+    [SerializeField] private int          _framerate = 24;
+    [SerializeField] private Camera       playerCamera;
 
     [Header("Movement Settings")]
     [SerializeField] private float _rotationSpeed = 10f;
@@ -38,44 +39,15 @@ public class SurveillanceCamera : MonoBehaviour
         _camera.targetTexture = _screenFeedRenderTexture;
     }
 
-    public void RotateLeft()
+    public void TargetToPlayerCameraWorld(Vector2 look)
     {
-        if (_controlled)
+        if (playerCamera == null)
         {
-            float rotationAmount = -_rotationSpeed * Time.deltaTime;
-            _currentAngleLeftRight = Mathf.Clamp(_currentAngleLeftRight + rotationAmount, -_maxAngleLeftRight, _maxAngleLeftRight);
-            camPivotLeftRight.localRotation = Quaternion.Euler(0, _currentAngleLeftRight, 0);
+            return;
         }
-    }
 
-    public void RotateRight()
-    {
-        if (_controlled)
-        {
-            float rotationAmount = _rotationSpeed * Time.deltaTime;
-            _currentAngleLeftRight = Mathf.Clamp(_currentAngleLeftRight + rotationAmount, -_maxAngleLeftRight, _maxAngleLeftRight);
-            camPivotLeftRight.localRotation = Quaternion.Euler(0, _currentAngleLeftRight, 0);
-        }
-    }
-
-    public void RotateUp()
-    {
-        if (_controlled)
-        {
-            float rotationAmount = -_rotationSpeed * Time.deltaTime;
-            _currentAngleUpDown = Mathf.Clamp(_currentAngleUpDown + rotationAmount, -_maxAngleUpDown, _maxAngleUpDown);
-            camPivotUpDown.localRotation = Quaternion.Euler(_currentAngleUpDown, 0, 0);
-        }
-    }
-
-    public void RotateDown()
-    {
-        if (_controlled)
-        {
-            float rotationAmount = _rotationSpeed * Time.deltaTime;
-            _currentAngleUpDown = Mathf.Clamp(_currentAngleUpDown + rotationAmount, -_maxAngleUpDown, _maxAngleUpDown);
-            camPivotUpDown.localRotation = Quaternion.Euler(_currentAngleUpDown, 0, 0);
-        }
+        Vector3 target = playerCamera.ScreenToWorldPoint(new Vector3(look.x, look.y, playerCamera.nearClipPlane));
+        camPivotLeftRight.transform.LookAt(target, Vector3.up);
     }
 
     public void ZoomIn()
@@ -107,4 +79,6 @@ public class SurveillanceCamera : MonoBehaviour
     public RenderTexture CamRenderTexture { get { return _screenFeedRenderTexture; } }
 
     public bool Controlled { get { return _controlled; } set { _controlled = value; } }
+
+    public Camera CamGuyCamera { get { return playerCamera; } set { value = playerCamera; } }
 }
