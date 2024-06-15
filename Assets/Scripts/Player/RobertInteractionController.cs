@@ -36,11 +36,27 @@ public class RobertInteractionController : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
+        InputManager inst = InputManager.Instance;
+
+        if (inst == null)
+        {
+            Debug.LogWarning("InputManager is null");
+            return;
+        }
+
         InputManager.Instance.InputControls.Game.Interact.started += OnInteract;
     }
 
     private void OnDisable()
     {
+        InputManager inst = InputManager.Instance;
+
+        if (inst == null)
+        {
+            Debug.LogWarning("InputManager is null");
+            return;
+        }
+
         InputManager.Instance.InputControls.Game.Interact.started -= OnInteract;
     }
 

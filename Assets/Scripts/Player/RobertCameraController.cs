@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
+using Cinemachine;
 
-public class RobertCameraController : MonoBehaviour
+
+public class RobertCameraController : NetworkBehaviour
 {
     [Header("Camera Rotation")]
     [SerializeField] private Vector2 sensitivity = Vector2.zero;
@@ -14,6 +17,8 @@ public class RobertCameraController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform orientation;
+    [SerializeField] private CinemachineVirtualCamera playerCamera;
+    [SerializeField] private AudioListener playerAudioSource;
     
     private Vector2 _cameraRotation = Vector2.zero;
 
@@ -25,11 +30,20 @@ public class RobertCameraController : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
         UpdateCameraRotation();
     }
 
     private void UpdateCameraRotation()
     {
+        InputManager inst = InputManager.Instance;
+
+        if (inst == null)
+        {
+            Debug.LogWarning("InputManager is null");
+            return;
+        }
+
         Vector2 mouseDelta = InputManager.Instance.GetMouseDelta() * sensitivity * Time.deltaTime;
         _cameraRotation += new Vector2(-mouseDelta.y, mouseDelta.x);
 
@@ -44,10 +58,9 @@ public class RobertCameraController : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(_cameraRotation);
         transform.rotation = targetRotation;
-        //transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
         orientation.rotation = Quaternion.Euler(0, _cameraRotation.y, 0);
     }
-    
+
     public void ForceYRotation(float angleY)
     {
         _cameraRotation.y = angleY;
