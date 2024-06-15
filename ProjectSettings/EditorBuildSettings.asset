@@ -6,6 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Lobby/Bootstrap.unity
+    guid: c3104e4de2136cf4fb908e1e6177baa0
+  - enabled: 1
+    path: Assets/Scenes/Lobby/MainMenu.unity
+    guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Lobby/Gameplay.unity
+    guid: fd944f928e3cdc84686a7562695b5c1d
+  - enabled: 1
+    path: Assets/Scenes/Lobby/CharacterSelect/CharacterSelect.unity
+    guid: b7544d5a30d9eed449267cef7699537b
+  - enabled: 1
     path: Assets/Scenes/R1 - Intro.unity
     guid: 5f70bc9fed6678f479c29fb57b973740
   - enabled: 1
@@ -14,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/R3 - Invisible Path.unity
     guid: a41ef3f5be09b944aa5253b2a3c97381
+  - enabled: 1
+    path: Assets/Scenes/network_test_scene.unity
+    guid: fc000d94eccc25047bf8f24b298979ad
   m_configObjects: {}
