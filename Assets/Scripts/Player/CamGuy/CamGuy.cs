@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CamGuy : MonoBehaviour
 {
-    [SerializeField] public CamRoom camRoom;
+    //[SerializeField] public CamRoom camRoom;
     [SerializeField] private CamGuyController camGuyController;
     [SerializeField] private Vector3 positionFromCamRoom = new Vector3(0.8f, 1.27f, 2);
 
@@ -22,22 +22,22 @@ public class CamGuy : MonoBehaviour
     {
         _camGuyState = CamGuyState.Unfocused;
 
-        StartPosition();
+        //StartPosition();
     }
 
     void StartPosition()
     {
-        if (camRoom == null)
-        {
-            Debug.LogError("[CamGuy::StartPosition] No Cam Room.");
-            return;
-        }
+        //if (camRoom == null)
+        //{
+        //    Debug.LogError("[CamGuy::StartPosition] No Cam Room.");
+        //    return;
+        //}
 
-        transform.position = new Vector3(
-            camRoom.transform.position.x - positionFromCamRoom.x,
-            camRoom.transform.position.y + positionFromCamRoom.y,
-            camRoom.transform.position.z - positionFromCamRoom.z
-        );
+        //transform.position = new Vector3(
+        //    camRoom.transform.position.x - positionFromCamRoom.x,
+        //    camRoom.transform.position.y + positionFromCamRoom.y,
+        //    camRoom.transform.position.z - positionFromCamRoom.z
+        //);
     }
 
     void Update()
