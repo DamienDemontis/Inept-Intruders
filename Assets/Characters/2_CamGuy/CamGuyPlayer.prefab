@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38eb45b56c80daa4088e6776d0c86294, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camRoom: {fileID: 0}
+  camRoom: {fileID: 8021958786171720499, guid: 11bdaa5834e65ce489e2d48bf9590b42, type: 3}
   camGuyController: {fileID: 6021002095257296194}
 --- !u!114 &6021002095257296194
 MonoBehaviour:
