@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingPlatformController : MonoBehaviour
+public class MovingPlatformController : MonoBehaviour, IInteractable
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
@@ -23,7 +23,7 @@ public class MovingPlatformController : MonoBehaviour
     private float _currentPauseTime = 0;
 
     private bool _isRewinding = false;
-    private bool _canMove = true;
+    private bool _canMove = false;
 
     private List<GameObject> _followerObjects = new List<GameObject>();
 
@@ -141,5 +141,15 @@ public class MovingPlatformController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.DrawWireCube(transform.position, interactionSize);
+    }
+
+    public void Interact()
+    {
+        _canMove = !_canMove;
+    }
+
+    public string GetId()
+    {
+        return string.Empty;
     }
 }
