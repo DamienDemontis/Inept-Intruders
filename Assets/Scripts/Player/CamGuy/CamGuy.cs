@@ -8,7 +8,6 @@ public class CamGuy : MonoBehaviour
     [SerializeField] private CamGuyController camGuyController;
     [SerializeField] private Vector3 positionFromCamRoom = new Vector3(0.8f, 1.27f, 2);
 
-
     private CamGuyState _camGuyState;
 
     public enum CamGuyState
@@ -23,22 +22,6 @@ public class CamGuy : MonoBehaviour
         _camGuyState = CamGuyState.Unfocused;
 
         StartPosition();
-
-        //    if (camRoom.board == null)
-        //    {
-        //        Debug.LogWarning("[CamGuy::Start] No button board on the Cam Guy.");
-        //    }
-        //    else
-        //    {
-        //        if (camGuyController == null)
-        //        {
-        //            Debug.LogWarning("[CamGuy::Start] No controller on the Cam Guy.");
-        //        }
-        //        else
-        //        {
-        //            camGuyController.ButtonBoard = camRoom.board;
-        //        }
-        //    }
     }
 
     void StartPosition()
