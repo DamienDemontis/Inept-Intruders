@@ -432,8 +432,8 @@ MonoBehaviour:
   _zoomSpeed: 1
   _minFOV: 15
   _maxFOV: 120
-  camPivotLeftRight: {fileID: 0}
-  camPivotUpDown: {fileID: 0}
+  camPivotLeftRight: {fileID: 6814797647569144133}
+  camPivotUpDown: {fileID: 8485190787117748959}
   _maxAngleLeftRight: 60
   _maxAngleUpDown: 45
   _controlled: 0

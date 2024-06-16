@@ -4876,7 +4876,6 @@ MonoBehaviour:
   leftLightningParticles: {fileID: 5623987466165038122}
   rightLightningParticles: {fileID: 9066593139443627162}
   lightningCollider: {fileID: 4502371680407198413}
-  isActive: 1
 --- !u!65 &4502371680407198413
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4896,7 +4895,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1.5, z: 12.5}
+  m_Size: {x: 1.5, y: 4, z: 12.5}
   m_Center: {x: 0, y: 0.5, z: 5}
 --- !u!114 &7787505148165565517
 MonoBehaviour:
