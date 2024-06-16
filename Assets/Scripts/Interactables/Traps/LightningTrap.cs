@@ -11,7 +11,10 @@ public class LightningTrap : NetworkBehaviour, IInteractable
 
     private void Start()
     {
-        Interact();
+        if (IsServer)
+        {
+            UpdateTrapStatus(true);
+        }
     }
 
     private void Update()

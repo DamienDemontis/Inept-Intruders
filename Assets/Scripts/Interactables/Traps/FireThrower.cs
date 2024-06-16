@@ -10,7 +10,10 @@ public class FireThrower : NetworkBehaviour, IInteractable
 
     private void Start()
     {
-        Interact();
+        if (IsServer)
+        {
+            UpdateFireThrowerStatus(true);
+        }
     }
 
     private void Update()

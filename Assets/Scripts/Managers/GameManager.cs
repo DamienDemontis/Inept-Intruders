@@ -148,7 +148,7 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(fadeOutTime);
 
-        _robertReferences.transform.position = checkpoints[_lastCheckpoint].transform.position;
+        LoadLastCheckpoint();
         fadeCanvasGroup.DOFade(0.0f, fadeInTime);
 
         yield return new WaitForSeconds(fadeInTime);
