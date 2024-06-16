@@ -16,7 +16,7 @@ public class Room : MonoBehaviour
 
             if (interactable != null)
             {
-                Debug.Log($"[Room::Start] Added interactable for room {_id}.");
+                Debug.Log($"[Room::Start] Added interactable for room");
                 _interactablesList.Add(interactable);
             }
         }
