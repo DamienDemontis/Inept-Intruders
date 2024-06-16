@@ -1,27 +1,29 @@
+using System;
 using UnityEngine;
 
-public class FireThrower : MonoBehaviour
+public class FireThrower : MonoBehaviour, IInteractable
 {
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private BoxCollider fireCollider;
-    [SerializeField] private bool isActive = true;
+    private bool _isActive = false;
 
     private void Start()
     {
-        SetFireThrowerStatus(isActive);   
+        Interact();   
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            SetFireThrowerStatus(!isActive);   
+            Interact();   
         }
     }
 
-    private void SetFireThrowerStatus(bool status)
+    public void Interact()
     {
-        if (status)
+        _isActive = !_isActive;
+        if (_isActive)
         {
             fireParticles.Play();
         }
@@ -29,8 +31,12 @@ public class FireThrower : MonoBehaviour
         {
             fireParticles.Stop();
         }
-        fireCollider.enabled = status;
-        isActive = status;
-        Debug.Log("New fire thrower status:" + isActive.ToString());
+        fireCollider.enabled = _isActive;
+        Debug.Log("New fire thrower status:" + _isActive.ToString());
+    }
+
+    public string GetId()
+    {
+        return String.Empty;
     }
 }
