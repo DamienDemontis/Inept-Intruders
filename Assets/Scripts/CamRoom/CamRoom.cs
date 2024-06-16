@@ -23,8 +23,22 @@ public class CamRoom : MonoBehaviour
 
         if (_roomsList == null || _roomsList.Count == 0)
         {
-            Debug.LogError("[CamRoom::Start] Rooms list is null or empty.");
-            return;
+            Room[] rooms = FindObjectsOfType<Room>();
+
+            foreach (Room room in rooms)
+            {
+                if (room != null)
+                {
+                    Debug.Log($"[Room::Start] Added room in cam room.");
+                    _roomsList.Add(room);
+                }
+            }
+
+            if (_roomsList.Count == 0)
+            {
+                Debug.LogError("[CamRoom::Start] No rooms found in the CamRoom.");
+                return;
+            }
         }
 
         if (_board == null)
@@ -33,7 +47,6 @@ public class CamRoom : MonoBehaviour
             return;
         }
 
-        //_board.RoomsList = _roomsList;
         _board.Room = _roomsList[_currentRoomIndex];
 
         if (_roomsList.Count <= _currentRoomIndex)
@@ -42,6 +55,7 @@ public class CamRoom : MonoBehaviour
         }
         else
         {
+            Debug.Log($"[CamRoom::Start] Adding list of camera from room to monitor");
             _cameraMonitor.SetCamerasList(_roomsList[_currentRoomIndex].SurveillanceCamerasList);
         }
     }
@@ -50,14 +64,14 @@ public class CamRoom : MonoBehaviour
     {
         if (_lastCurrentRoomIndex != _currentRoomIndex)
         {
-            Debug.Log($"[Monitor::Update] change camera index from {_lastCurrentRoomIndex} to {_currentRoomIndex}.");
+            Debug.Log($"[CamRoom::Update] change camera index from {_lastCurrentRoomIndex} to {_currentRoomIndex}.");
 
             _lastCurrentRoomIndex = _currentRoomIndex;
 
             if (_currentRoomIndex >= _roomsList.Count)
             {
                 _currentRoomIndex = 0;
-                Debug.Log($"[Monitor::Update] Room index to high, no more than {_roomsList.Count} are availables.");
+                Debug.Log($"[CamRoom::Update] Room index to high, no more than {_roomsList.Count} are availables.");
             }
 
             _cameraMonitor.SetCamerasList(_roomsList[_currentRoomIndex].SurveillanceCamerasList);
@@ -69,7 +83,7 @@ public class CamRoom : MonoBehaviour
     {
         if (_roomsList == null || _roomsList.Count == 0)
         {
-            Debug.LogWarning("[Board::SwitchToNextRoom] No rooms available to switch.");
+            Debug.LogWarning("[CamRoom::SwitchToNextRoom] No rooms available to switch.");
             return;
         }
 
@@ -80,14 +94,14 @@ public class CamRoom : MonoBehaviour
 
         _board.Room = _roomsList[_currentRoomIndex];
 
-        Debug.Log($"[Board::SwitchToNextRoom] Switched to room: {_roomsList[_currentRoomIndex].name}");
+        Debug.Log($"[CamRoom::SwitchToNextRoom] Switched to room: {_roomsList[_currentRoomIndex].name}");
     }
 
     public void SwitchToPreviousRoom()
     {
         if (_roomsList == null || _roomsList.Count == 0)
         {
-            Debug.LogWarning("[Board::SwitchToPreviousRoom] No rooms available to switch.");
+            Debug.LogWarning("[CamRoom::SwitchToPreviousRoom] No rooms available to switch.");
             return;
         }
 
@@ -98,7 +112,7 @@ public class CamRoom : MonoBehaviour
 
         _board.Room = _roomsList[_currentRoomIndex];
 
-        Debug.Log($"[Board::SwitchToNextRoom] Switched to room: {_roomsList[_currentRoomIndex].name}");
+        Debug.Log($"[CamRoom::SwitchToNextRoom] Switched to room: {_roomsList[_currentRoomIndex].name}");
     }
 
     public List<Room> RoomsList

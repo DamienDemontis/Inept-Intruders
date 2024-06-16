@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - RobertPlayer
+  - RobertSpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,6 @@ TagManager:
   - Post Processing
   - Interactable
   - ActivationBox
-  - 
   - 
   - 
   - 

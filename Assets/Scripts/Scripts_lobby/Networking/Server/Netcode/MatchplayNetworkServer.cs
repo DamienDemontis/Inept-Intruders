@@ -235,6 +235,7 @@ public class MatchplayNetworkServer : IDisposable
     private Matchplayer GetNetworkedMatchPlayer(ulong clientId)
     {
         NetworkObject playerObject = networkManager.SpawnManager.GetPlayerNetworkObject(clientId);
+        Debug.Log("playerObject = " + playerObject);
         return playerObject.GetComponent<Matchplayer>();
     }
 

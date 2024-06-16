@@ -28,6 +28,8 @@ public class CamGuyCamera : NetworkBehaviour
     private float     _distanceFromTarget;
     private Transform _baseTransfomer;
 
+    private bool _isTransitioning = false;
+
     private void Start()
     {
         _baseTransfomer = _camGuy.transform;
@@ -48,7 +50,10 @@ public class CamGuyCamera : NetworkBehaviour
         _transitionDuration = transitionDuration;
         _distanceFromTarget = distanceFromTarget;
 
-        StartCoroutine(Transition());
+        if (!_isTransitioning)
+        {
+            StartCoroutine(Transition());
+        }
     }
 
     public void ResetToBase(float transitionDuration = 2.5f)
@@ -58,6 +63,8 @@ public class CamGuyCamera : NetworkBehaviour
 
     IEnumerator Transition()
     {
+        _isTransitioning = true;
+
         float t = 0.0f;
         Vector3 startingPos    = transform.position;
         Quaternion startingRot = transform.rotation;
@@ -82,5 +89,7 @@ public class CamGuyCamera : NetworkBehaviour
 
         transform.position = modifiedTargetPos;
         transform.rotation = targetRotation;
+
+        _isTransitioning = false;
     }
 }
