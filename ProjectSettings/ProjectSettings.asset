@@ -762,11 +762,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: d0a50a02-1841-42a4-ae76-04f11446be17
+  cloudProjectId: 93169fc9-020e-45ba-b2c4-55de754e6f0d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: IneptIntruders
-  organizationId: unity_ea0707efebd790eb7a91
+  projectName: Inept Intruders - A Robber-Sitter Adventure (1)
+  organizationId: elswift
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
