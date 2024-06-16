@@ -83,6 +83,7 @@ public class RobertMovementController : NetworkBehaviour
         {
             return;
         }
+
         if (transform.position.y < -10.0f)
         {
             ForcePosition(_startingPos);
