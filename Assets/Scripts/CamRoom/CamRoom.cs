@@ -8,7 +8,7 @@ public class CamRoom : MonoBehaviour
     [SerializeField] private Board   _board;
 
     [Header("Room Config")]
-    [SerializeField] private List<Room> _roomsList;
+    [SerializeField] private List<Room> _roomsList = new List<Room>();
     [SerializeField] private int        _currentRoomIndex = 0;
 
     private int _lastCurrentRoomIndex;
@@ -29,14 +29,14 @@ public class CamRoom : MonoBehaviour
             {
                 if (room != null)
                 {
-                    Debug.Log($"[Room::Start] Added room in cam room.");
+                    Debug.Log($"[CamRoom::Start] Added room in cam room.");
                     _roomsList.Add(room);
                 }
             }
 
             if (_roomsList.Count == 0)
             {
-                Debug.LogError("[CamRoom::Start] No rooms found in the CamRoom.");
+                Debug.LogWarning("[CamRoom::Start] No rooms found in the CamRoom.");
                 return;
             }
         }
@@ -62,6 +62,26 @@ public class CamRoom : MonoBehaviour
 
     void Update()
     {
+        if (_roomsList == null || _roomsList.Count == 0)
+        {
+            Room[] rooms = FindObjectsOfType<Room>();
+
+            foreach (Room room in rooms)
+            {
+                if (room != null)
+                {
+                    Debug.Log($"[CamRoom::Start] Added room in cam room.");
+                    _roomsList.Add(room);
+                }
+            }
+
+            if (_roomsList.Count == 0)
+            {
+                Debug.LogWarning("[CamRoom::Start] No rooms found in the CamRoom.");
+                return;
+            }
+        }
+
         if (_lastCurrentRoomIndex != _currentRoomIndex)
         {
             Debug.Log($"[CamRoom::Update] change camera index from {_lastCurrentRoomIndex} to {_currentRoomIndex}.");

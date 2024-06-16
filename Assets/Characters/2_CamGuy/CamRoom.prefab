@@ -55,7 +55,7 @@ MonoBehaviour:
   _cameraMonitor: {fileID: 2193313089979865210}
   _board: {fileID: 4968341210866329005}
   _roomsList: []
-  _currentRoomIndex: 0
+  _currentRoomIndex: 1
 --- !u!114 &6745262563030950344
 MonoBehaviour:
   m_ObjectHideFlags: 0
