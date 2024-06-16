@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 2
   displayName: CamGuy
   icon: {fileID: 21300000, guid: 48652c2da3ae5924fabf1568f756a660, type: 3}
-  introPrefab: {fileID: 919132149155446097, guid: 9131a68e81267ca45994accee756c84d,
+  introPrefab: {fileID: 5721258242963356243, guid: 8deecbba4d10f144d85b911d9aab5766,
     type: 3}
   gameplayPrefab: {fileID: 6745262563030950344, guid: 11bdaa5834e65ce489e2d48bf9590b42,
     type: 3}

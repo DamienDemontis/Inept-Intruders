@@ -15,7 +15,7 @@ MonoBehaviour:
   id: 1
   displayName: Robert
   icon: {fileID: 21300000, guid: c5e3aabfcecf3614a947ec31b8b4cb4c, type: 3}
-  introPrefab: {fileID: 919132149155446097, guid: d82b62a0c7199b247a7086eea5c4bf00,
+  introPrefab: {fileID: 8713100099415393742, guid: 9a66998c23fc0ce4d9f62abbac995293,
     type: 3}
   gameplayPrefab: {fileID: 3395929662484828436, guid: 8968dd61fa7c8f84c8b9e6892eb6b716,
     type: 3}
