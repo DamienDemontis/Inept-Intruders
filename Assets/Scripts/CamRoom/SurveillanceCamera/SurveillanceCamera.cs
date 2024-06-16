@@ -16,13 +16,13 @@ public class SurveillanceCamera : MonoBehaviour
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private float _zoomSpeed = 1.1f;
     [SerializeField] private float _minFOV = 15f;
-    [SerializeField] private float _maxFOV = 120f;
+    [SerializeField] private float _maxFOV = 50f;
 
     [SerializeField] public Transform camPivotLeftRight;
     [SerializeField] public Transform camPivotUpDown;
 
     [Header("Rotation Limits")]
-    [SerializeField] private float _maxAngleLeftRight = 60f;
+    [SerializeField] private float _maxAngleLeftRight = 90f;
     [SerializeField] private float _maxAngleUpDown = 45f;
 
     [Header("")]
