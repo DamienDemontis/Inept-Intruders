@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using Unity.Netcode.Components;
 using UnityEngine;
 
-public class MovingPlatformController : MonoBehaviour, IInteractable
+public class MovingPlatformController : NetworkBehaviour, IInteractable
 {
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 2f;
@@ -23,26 +25,31 @@ public class MovingPlatformController : MonoBehaviour, IInteractable
     private float _currentPauseTime = 0;
 
     private bool _isRewinding = false;
-    private bool _canMove = false;
+    private NetworkVariable<bool> _canMove = new NetworkVariable<bool>();
 
     private List<GameObject> _followerObjects = new List<GameObject>();
 
     private void Start()
     {
-        if (shouldWaitPlayer)
+        if (IsServer)
         {
-            _canMove = false;
+            UpdateMovingPlatformStatus(false);
         }
     }
 
     private void Update()
     {
+        if (!IsServer)
+        {
+            return;
+        }
+
         if (makeFollower)
         {
             CheckFollowerObjects();
         }
 
-        if (!_canMove)
+        if (!_canMove.Value)
         {
             return;
         }
@@ -132,7 +139,7 @@ public class MovingPlatformController : MonoBehaviour, IInteractable
 
                 if (shouldWaitPlayer && hitColliders[i].gameObject.tag == "RobertPlayer")
                 {
-                    _canMove = true;
+                    _canMove.Value = true;
                 }
             }
         }
@@ -145,7 +152,25 @@ public class MovingPlatformController : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        _canMove = !_canMove;
+        if (IsServer)
+        {
+            UpdateMovingPlatformStatus(!_canMove.Value);
+        }
+        else
+        {
+            RequestMovingPlatformStatusChangeServerRpc();
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RequestMovingPlatformStatusChangeServerRpc(ServerRpcParams rpcParams = default)
+    {
+        UpdateMovingPlatformStatus(!_canMove.Value);
+    }
+
+    private void UpdateMovingPlatformStatus(bool newStatus)
+    {
+        _canMove.Value = newStatus;
     }
 
     public string GetId()
