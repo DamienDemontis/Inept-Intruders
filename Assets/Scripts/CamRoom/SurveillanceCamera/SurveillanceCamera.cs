@@ -96,11 +96,13 @@ public class SurveillanceCamera : MonoBehaviour
 
     public void Activate()
     {
+        _camera.enabled = true;
         enabled = true;
     }
 
     public void Deactivate()
     {
+        _camera.enabled = false;
         enabled = false;
     }
 
