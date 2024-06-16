@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
+using Unity.Netcode;
+using UnityEditor.SceneManagement;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -108,7 +111,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(fadeOutTime);
 
-        SceneManager.LoadScene(sceneName);
+        NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
     private void OnApplicationQuit()
