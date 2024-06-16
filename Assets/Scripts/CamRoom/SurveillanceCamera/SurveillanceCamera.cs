@@ -41,20 +41,33 @@ public class SurveillanceCamera : MonoBehaviour
 
     private void Update()
     {
-        Vector3 mousePos = Input.mousePosition;
-        TargetToPlayerCameraWorld(new Vector2(mousePos.x, mousePos.y));
-    }
-
-    public void TargetToPlayerCameraWorld(Vector2 look)
-    {
-        if (playerCamera == null)
+        if (_controlled)
         {
-            Debug.LogWarning($"[SurveillanceCamera::TargetToPlayerCameraWorld] No player camera set: {_id}");
-            return;
+            if (Input.GetKey(KeyCode.W))
+            {
+                RotateUp();
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                RotateDown();
+            }
+            if (Input.GetKey(KeyCode.A))
+            {
+                RotateLeft();
+            }
+            if (Input.GetKey(KeyCode.D))
+            {
+                RotateRight();
+            }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                ZoomIn();
+            }
+            if (Input.GetKey(KeyCode.E))
+            {
+                ZoomOut();
+            }
         }
-
-        Vector3 target = playerCamera.ScreenToWorldPoint(new Vector3(look.x, look.y, playerCamera.nearClipPlane));
-        camPivotLeftRight.transform.LookAt(target, Vector3.up);
     }
 
     public void ZoomIn()
@@ -70,6 +83,42 @@ public class SurveillanceCamera : MonoBehaviour
         if (_controlled)
         {
             _camera.fieldOfView = Mathf.Min(_camera.fieldOfView + _zoomSpeed * Time.deltaTime, _maxFOV);
+        }
+    }
+
+    void RotateUp()
+    {
+        if (_controlled)
+        {
+            _currentAngleUpDown = Mathf.Min(_currentAngleUpDown + _rotationSpeed * Time.deltaTime, _maxAngleUpDown);
+            camPivotUpDown.localRotation = Quaternion.Euler(_currentAngleUpDown, 0, 0);
+        }
+    }
+
+    void RotateDown()
+    {
+        if (_controlled)
+        {
+            _currentAngleUpDown = Mathf.Max(_currentAngleUpDown - _rotationSpeed * Time.deltaTime, -_maxAngleUpDown);
+            camPivotUpDown.localRotation = Quaternion.Euler(_currentAngleUpDown, 0, 0);
+        }
+    }
+
+    void RotateLeft()
+    {
+        if (_controlled)
+        {
+            _currentAngleLeftRight = Mathf.Max(_currentAngleLeftRight - _rotationSpeed * Time.deltaTime, -_maxAngleLeftRight);
+            camPivotLeftRight.localRotation = Quaternion.Euler(0, _currentAngleLeftRight, 0);
+        }
+    }
+
+    void RotateRight()
+    {
+        if (_controlled)
+        {
+            _currentAngleLeftRight = Mathf.Min(_currentAngleLeftRight + _rotationSpeed * Time.deltaTime, _maxAngleLeftRight);
+            camPivotLeftRight.localRotation = Quaternion.Euler(0, _currentAngleLeftRight, 0);
         }
     }
 

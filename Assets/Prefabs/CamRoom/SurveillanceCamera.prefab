@@ -428,12 +428,13 @@ MonoBehaviour:
   _camera: {fileID: 8250746357947509427}
   _resolution: {x: 320, y: 240}
   _framerate: 24
-  _rotationSpeed: 10
-  _zoomSpeed: 1
+  playerCamera: {fileID: 0}
+  _rotationSpeed: 60
+  _zoomSpeed: 10
   _minFOV: 15
-  _maxFOV: 120
-  camPivotLeftRight: {fileID: 0}
-  camPivotUpDown: {fileID: 0}
+  _maxFOV: 60
+  camPivotLeftRight: {fileID: 6814797647569144133}
+  camPivotUpDown: {fileID: 8485190787117748959}
   _maxAngleLeftRight: 60
   _maxAngleUpDown: 45
   _controlled: 0

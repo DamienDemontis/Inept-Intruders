@@ -80,6 +80,7 @@ public class Monitor : MonoBehaviour, IInteractable
         if (_currentCamera != null)
         {
             _currentCamera.Controlled = false;
+            _currentCamera.CamGuyCamera = null;
             _currentCamera.Deactivate();
         }
 
@@ -117,20 +118,11 @@ public class Monitor : MonoBehaviour, IInteractable
             {
                 Debug.Log($"[Monitor::Interact] Resetting camera to base position");
                 _camGuyCamera.ResetToBase(1f);
-                if (camGuyCameraRaw != null)
-                {
-                    _currentCamera.CamGuyCamera = null;
-                }
             }
             else
             {
                 Debug.Log($"[Monitor::Interact] Focusing on monitor");
                 _camGuyCamera.StartTransition(this._focusedCamera.transform, 0, 1f);
-                if (camGuyCameraRaw != null)
-                {
-                    Debug.Log($"[Monitor::Interact] giving raw camera to surveillance camera.");
-                    _currentCamera.CamGuyCamera = camGuyCameraRaw;
-                }
             }
         }
         else
