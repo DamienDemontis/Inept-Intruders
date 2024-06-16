@@ -81,7 +81,6 @@ public class RobertMovementController : NetworkBehaviour
         Debug.Log("IsOwner (RobertMovementController.cs) == " + IsOwner);
         if (!IsOwner)
         {
-            enabled = false;
             return;
         }
         if (transform.position.y < -10.0f)
