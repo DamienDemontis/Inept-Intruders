@@ -21,6 +21,7 @@ public class CamRoom : MonoBehaviour
             return;
         }
 
+
         if (_roomsList == null || _roomsList.Count == 0)
         {
             Room[] rooms = FindObjectsOfType<Room>();
