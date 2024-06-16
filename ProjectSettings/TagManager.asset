@@ -6,6 +6,7 @@ TagManager:
   tags:
   - RobertPlayer
   - RobertSpawnPoint
+  - BoardInteractable
   layers:
   - Default
   - TransparentFX

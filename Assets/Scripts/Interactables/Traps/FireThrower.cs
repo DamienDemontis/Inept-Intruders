@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class FireThrower : MonoBehaviour, IInteractable
+public class FireThrower : NetworkBehaviour, IInteractable
 {
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private BoxCollider fireCollider;

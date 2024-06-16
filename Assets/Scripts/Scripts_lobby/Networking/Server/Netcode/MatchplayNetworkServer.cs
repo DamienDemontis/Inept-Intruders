@@ -108,7 +108,7 @@ public class MatchplayNetworkServer : IDisposable
     {
         gameHasStarted = true;
 
-        NetworkManager.Singleton.SceneManager.LoadScene("R1 - Intro - Map", LoadSceneMode.Single);
+        NetworkManager.Singleton.SceneManager.LoadScene("R2 - Boxes - Map", LoadSceneMode.Single);
     }
 
     private void ApprovalCheck(NetworkManager.ConnectionApprovalRequest request, NetworkManager.ConnectionApprovalResponse response)

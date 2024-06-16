@@ -1,7 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class LightningTrap : MonoBehaviour, IInteractable
+public class LightningTrap : NetworkBehaviour, IInteractable
 {
     [SerializeField] private ParticleSystem leftLightningParticles;
     [SerializeField] private ParticleSystem rightLightningParticles;
