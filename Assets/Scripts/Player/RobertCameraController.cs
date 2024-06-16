@@ -8,8 +8,7 @@ using Cinemachine;
 public class RobertCameraController : NetworkBehaviour
 {
     [Header("Camera Rotation")]
-    [SerializeField] private Vector2 sensitivity = Vector2.zero;
-    [SerializeField] private float maxRotationSpeed = 40f;
+    [SerializeField] private float sensitivity = 6.0f;
     [SerializeField] private bool clampXRotation = true;
     [SerializeField] private bool clampYRotation = false;
     [SerializeField] private Vector2 minRotation = Vector2.zero;
@@ -21,6 +20,7 @@ public class RobertCameraController : NetworkBehaviour
     [SerializeField] private AudioListener playerAudioSource;
     
     private Vector2 _cameraRotation = Vector2.zero;
+    private Vector2 _smoothV = Vector2.zero;
 
     private void Awake()
     {
