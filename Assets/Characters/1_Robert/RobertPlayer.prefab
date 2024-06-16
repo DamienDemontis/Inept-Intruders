@@ -82,7 +82,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1002061893063225292
 Transform:
   m_ObjectHideFlags: 0
@@ -727,7 +727,7 @@ MonoBehaviour:
   jumpHeight: 1
   coyoteTime: 0.1
   orientation: {fileID: 2056557781924368162}
-  modelTransform: {fileID: 1002061893063225292}
+  modelTransform: {fileID: 7462784499246706846}
 --- !u!114 &3681302648097008473
 MonoBehaviour:
   m_ObjectHideFlags: 0
