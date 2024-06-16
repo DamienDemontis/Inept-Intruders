@@ -1,28 +1,30 @@
+using System;
 using UnityEngine;
 
-public class LightningTrap : MonoBehaviour
+public class LightningTrap : MonoBehaviour, IInteractable
 {
     [SerializeField] private ParticleSystem leftLightningParticles;
     [SerializeField] private ParticleSystem rightLightningParticles;
     [SerializeField] private BoxCollider lightningCollider;
-    [SerializeField] private bool isActive = true;
+    private bool _isActive = false;
 
     private void Start()
     {
-        SetLightningTrapStatus(isActive);   
+        Interact();   
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SetLightningTrapStatus(!isActive);   
+            Interact();   
         }
     }
 
-    private void SetLightningTrapStatus(bool status)
+    public void Interact()
     {
-        if (status)
+        _isActive = !_isActive;
+        if (_isActive)
         {
             leftLightningParticles.Play();
             rightLightningParticles.Play();
@@ -32,8 +34,12 @@ public class LightningTrap : MonoBehaviour
             leftLightningParticles.Stop();
             rightLightningParticles.Stop();
         }
-        lightningCollider.enabled = status;
-        isActive = status;
-        Debug.Log("New lightning trap status:" + isActive.ToString());
+        lightningCollider.enabled = _isActive;
+        Debug.Log("New lightning trap status:" + _isActive.ToString());
+    }
+
+    public string GetId()
+    {
+        return String.Empty;
     }
 }
