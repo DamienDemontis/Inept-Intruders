@@ -103,7 +103,6 @@ public class Monitor : MonoBehaviour, IInteractable
         Interact();
     }
 
-
     public void Interact()
     {
         if (_camGuyCamera == null)
@@ -129,6 +128,7 @@ public class Monitor : MonoBehaviour, IInteractable
                 _camGuyCamera.StartTransition(this._focusedCamera.transform, 0, 1f);
                 if (camGuyCameraRaw != null)
                 {
+                    Debug.Log($"[Monitor::Interact] giving raw camera to surveillance camera.");
                     _currentCamera.CamGuyCamera = camGuyCameraRaw;
                 }
             }
@@ -147,8 +147,7 @@ public class Monitor : MonoBehaviour, IInteractable
             return;
         }
 
-        _currentCamera = _roomSurveillanceCamerasList[(++_currentCameraIndex) % _roomSurveillanceCamerasList.Count];
-        _screenMaterial.mainTexture = _currentCamera.CamRenderTexture;
+        SetCamera((++_currentCameraIndex) % _roomSurveillanceCamerasList.Count);
     }
 
     public void SwitchToPreviousCamera()
@@ -161,8 +160,7 @@ public class Monitor : MonoBehaviour, IInteractable
 
         int newCameraIndex = _currentCameraIndex - 1 < 0 ? 0 : _roomSurveillanceCamerasList.Count + (_currentCameraIndex - 1);
 
-        _currentCamera = _roomSurveillanceCamerasList[(newCameraIndex) % _roomSurveillanceCamerasList.Count];
-        _screenMaterial.mainTexture = _currentCamera.CamRenderTexture;
+        SetCamera(newCameraIndex % _roomSurveillanceCamerasList.Count);
     }
 
     public string GetId()

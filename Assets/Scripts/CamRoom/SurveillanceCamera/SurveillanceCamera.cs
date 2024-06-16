@@ -7,10 +7,10 @@ public class SurveillanceCamera : MonoBehaviour
     [SerializeField] private string _id;
 
     [Header("Camera Config")]
-    [SerializeField] private Camera       _camera;
-    [SerializeField] private Vector2Int   _resolution = new Vector2Int(1920, 1080);
-    [SerializeField] private int          _framerate = 24;
-    [SerializeField] private Camera       playerCamera;
+    [SerializeField] private Camera     _camera;
+    [SerializeField] private Vector2Int _resolution = new Vector2Int(1920, 1080);
+    [SerializeField] private int        _framerate = 24;
+    [SerializeField] private Camera     playerCamera;
 
     [Header("Movement Settings")]
     [SerializeField] private float _rotationSpeed = 10f;
@@ -39,10 +39,17 @@ public class SurveillanceCamera : MonoBehaviour
         _camera.targetTexture = _screenFeedRenderTexture;
     }
 
+    private void Update()
+    {
+        Vector3 mousePos = Input.mousePosition;
+        TargetToPlayerCameraWorld(new Vector2(mousePos.x, mousePos.y));
+    }
+
     public void TargetToPlayerCameraWorld(Vector2 look)
     {
         if (playerCamera == null)
         {
+            Debug.LogWarning($"[SurveillanceCamera::TargetToPlayerCameraWorld] No player camera set: {_id}");
             return;
         }
 
