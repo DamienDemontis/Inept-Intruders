@@ -12,6 +12,7 @@ public class Monitor : MonoBehaviour, IInteractable
     [SerializeField] private Material      _screenMaterial;
     [SerializeField] private int           _currentCameraIndex = 0;
     [SerializeField] private Transform     _focusedCamera;
+    [SerializeField] private Transform     unfocusedfocusedCamera;
 
     [Header("Buttons")]
     [SerializeField] private MonitorButton _nextButton;
@@ -116,7 +117,7 @@ public class Monitor : MonoBehaviour, IInteractable
             if (Vector3.Distance(this._focusedCamera.transform.position, _camGuyCamera.transform.position) < 1)
             {
                 Debug.Log($"[Monitor::Interact] Resetting camera to base position");
-                _camGuyCamera.ResetToBase(1f);
+                _camGuyCamera.StartTransition(this.unfocusedfocusedCamera.transform, 0, 1f);
             }
             else
             {
