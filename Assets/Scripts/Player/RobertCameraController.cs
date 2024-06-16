@@ -24,6 +24,11 @@ public class RobertCameraController : NetworkBehaviour
 
     private void Awake()
     {
+    }
+
+    private void Start()
+    {
+        Debug.Log("IsOwner = " + IsOwner);
         if (IsOwner)
         {
             Cursor.lockState = CursorLockMode.Locked;
