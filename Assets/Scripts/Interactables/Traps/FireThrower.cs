@@ -33,7 +33,7 @@ public class FireThrower : NetworkBehaviour, IInteractable
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void RequestFireThrowerStatusChangeServerRpc(ServerRpcParams rpcParams = default)
     {
         UpdateFireThrowerStatus(!_isActive.Value);

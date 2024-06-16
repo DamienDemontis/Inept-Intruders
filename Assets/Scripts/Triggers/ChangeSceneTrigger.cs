@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class ChangeSceneTrigger : MonoBehaviour
 {
-    [SerializeField] private string nextSceneName;
+/*    [SerializeField] private string nextSceneName;*/
+    [SerializeField] private Transform spawnTransform;
     [Space]
     [SerializeField] private float triggerRadius = 2.0f;
     [SerializeField] private LayerMask playerLayer;
@@ -23,7 +24,8 @@ public class ChangeSceneTrigger : MonoBehaviour
         if (hitColliders.Length > 0)
         {
             _wasTriggered = true;
-            StartCoroutine(GameManager.Instance.ChangeScene(nextSceneName));
+            StartCoroutine(GameManager.Instance.TeleportRobertPlayer(spawnTransform.position));
+/*            StartCoroutine(GameManager.Instance.ChangeScene(nextSceneName));*/
         }
     }
 

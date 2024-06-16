@@ -7,6 +7,9 @@ public class Room : MonoBehaviour
     [SerializeReference] private List<IInteractable> _interactablesList = new List<IInteractable>();
     [SerializeReference] private List<SurveillanceCamera> _surveillanceCamerasList = new List<SurveillanceCamera>();
     [SerializeField] private string _id;
+    [SerializeField] private int roomId;
+
+    public int RoomId => roomId;
 
     void Start()
     {

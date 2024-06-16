@@ -34,7 +34,7 @@ public class LightningTrap : NetworkBehaviour, IInteractable
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void RequestTrapStatusChangeServerRpc(ServerRpcParams rpcParams = default)
     {
         UpdateTrapStatus(!_isActive.Value);
