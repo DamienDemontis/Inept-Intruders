@@ -1,29 +1,54 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-public class FireThrower : MonoBehaviour, IInteractable
+public class FireThrower : NetworkBehaviour, IInteractable
 {
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private BoxCollider fireCollider;
-    private bool _isActive = false;
+    private NetworkVariable<bool> _isActive = new NetworkVariable<bool>();
 
     private void Start()
     {
-        Interact();   
+        Interact();
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            Interact();   
+            Interact();
         }
     }
 
     public void Interact()
     {
-        _isActive = !_isActive;
-        if (_isActive)
+        if (IsServer)
+        {
+            UpdateFireThrowerStatus(!_isActive.Value);
+        }
+        else
+        {
+            RequestFireThrowerStatusChangeServerRpc();
+        }
+    }
+
+    [ServerRpc]
+    private void RequestFireThrowerStatusChangeServerRpc(ServerRpcParams rpcParams = default)
+    {
+        UpdateFireThrowerStatus(!_isActive.Value);
+    }
+
+    private void UpdateFireThrowerStatus(bool newStatus)
+    {
+        _isActive.Value = newStatus;
+        UpdateFireEffects(newStatus);
+    }
+
+    private void UpdateFireEffects(bool isActive)
+    {
+        fireCollider.enabled = isActive;
+        if (isActive)
         {
             fireParticles.Play();
         }
@@ -31,8 +56,22 @@ public class FireThrower : MonoBehaviour, IInteractable
         {
             fireParticles.Stop();
         }
-        fireCollider.enabled = _isActive;
-        Debug.Log("New fire thrower status:" + _isActive.ToString());
+        Debug.Log("New fire thrower status: " + _isActive.Value);
+    }
+
+    private void OnEnable()
+    {
+        _isActive.OnValueChanged += OnActiveStatusChanged;
+    }
+
+    private void OnDisable()
+    {
+        _isActive.OnValueChanged -= OnActiveStatusChanged;
+    }
+
+    private void OnActiveStatusChanged(bool oldValue, bool newValue)
+    {
+        UpdateFireEffects(newValue);
     }
 
     public string GetId()

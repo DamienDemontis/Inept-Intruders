@@ -8,31 +8,19 @@ public class CamGuyCamera : NetworkBehaviour
     [SerializeField] private CamGuy _camGuy;
 
     [Header("Transition Config")]
-    [SerializeField] private float          _transitionDuration = 2.5f;
-    [SerializeField] private AnimationCurve _transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-
-    [Header("Camera Rotation")]
-    [SerializeField] private Vector2 sensitivity = Vector2.zero;
-    [SerializeField] private float   maxRotationSpeed = 40f;
-    [SerializeField] private bool    clampXRotation = true;
-    [SerializeField] private bool    clampYRotation = false;
-    [SerializeField] private Vector2 minRotation = Vector2.zero;
-    [SerializeField] private Vector2 maxRotation = Vector2.zero;
-
-    [Header("References")]
-    [SerializeField] private Transform orientation;
-    [SerializeField] private AudioListener playerAudioSource;
-    private Vector2 _cameraRotation = Vector2.zero;
+    [SerializeField] private float transitionDuration = 2.5f;
+    [SerializeField] private AnimationCurve transitionCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private Transform toFollow;
 
     private Transform _target;
-    private float     _distanceFromTarget;
+    private float _distanceFromTarget;
     private Transform _baseTransfomer;
 
     private bool _isTransitioning = false;
 
     private void Start()
     {
-        _baseTransfomer = _camGuy.transform;
+        _baseTransfomer = toFollow.transform;
     }
 
     private void Update()
@@ -46,8 +34,8 @@ public class CamGuyCamera : NetworkBehaviour
 
     public void StartTransition(Transform target, float distanceFromTarget, float transitionDuration)
     {
-        _target             = target;
-        _transitionDuration = transitionDuration;
+        _target = target;
+        this.transitionDuration = transitionDuration;
         _distanceFromTarget = distanceFromTarget;
 
         if (!_isTransitioning)
@@ -56,20 +44,16 @@ public class CamGuyCamera : NetworkBehaviour
         }
     }
 
-    public void ResetToBase(float transitionDuration = 2.5f)
-    {
-        StartTransition(_baseTransfomer, 0.0f, transitionDuration);
-    }
-
     IEnumerator Transition()
     {
+        Debug.Log($"[CamGuyCamera::Transition] _baseTransfomer : {_baseTransfomer.position}");
         _isTransitioning = true;
 
         float t = 0.0f;
-        Vector3 startingPos    = transform.position;
-        Quaternion startingRot = transform.rotation;
+        Vector3 startingPos = toFollow.position;
+        Quaternion startingRot = toFollow.rotation;
 
-        Vector3 directionToTarget = _target.position - transform.position;
+        Vector3 directionToTarget = _target.position - toFollow.position;
         directionToTarget.Normalize();
         Vector3 modifiedTargetPos = _target.position - directionToTarget * _distanceFromTarget;
 
@@ -77,18 +61,18 @@ public class CamGuyCamera : NetworkBehaviour
 
         while (t < 1.0f)
         {
-            t += Time.deltaTime * (Time.timeScale / _transitionDuration);
+            t += Time.deltaTime * (Time.timeScale / transitionDuration);
 
-            float curveT = _transitionCurve.Evaluate(t);
+            float curveT = transitionCurve.Evaluate(t);
 
-            transform.position = Vector3.Lerp(startingPos, modifiedTargetPos, curveT);
-            transform.rotation = Quaternion.Slerp(startingRot, targetRotation, curveT);
+            toFollow.position = Vector3.Lerp(startingPos, modifiedTargetPos, curveT);
+            toFollow.rotation = Quaternion.Slerp(startingRot, targetRotation, curveT);
 
             yield return null;
         }
 
-        transform.position = modifiedTargetPos;
-        transform.rotation = targetRotation;
+        toFollow.position = modifiedTargetPos;
+        toFollow.rotation = targetRotation;
 
         _isTransitioning = false;
     }
