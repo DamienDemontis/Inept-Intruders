@@ -23,7 +23,22 @@ public class CamRoom : MonoBehaviour
 
         if (_roomsList == null || _roomsList.Count == 0)
         {
-            Debug.LogError("[CamRoom::Start] Rooms list is null or empty.");
+            foreach (Transform child in transform)
+            {
+                Room room = child.GetComponentInParent<Room>();
+
+                if (room != null)
+                {
+                    Debug.Log($"[Room::Start] Added room in cam room.");
+                    _roomsList.Add(room);
+                }
+            }
+
+            if (_roomsList.Count == 0)
+            {
+                Debug.LogError("[CamRoom::Start] No rooms found in the CamRoom.");
+            }
+
             return;
         }
 
