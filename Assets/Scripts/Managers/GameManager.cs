@@ -7,7 +7,7 @@ using Unity.Netcode;
 using UnityEditor.SceneManagement;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     [SerializeField] private int roomIndex = 0;
     [SerializeField] private List<CheckpointTrigger> checkpoints;
@@ -41,6 +41,19 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(FadeIn());
 
+        GetRobertPlayer();
+    }
+
+    private void Update()
+    {
+        if (!_robertReferences)
+        {
+            GetRobertPlayer();
+        }
+    }
+
+    private void GetRobertPlayer()
+    {
         GameObject robertPlayerObject = GameObject.FindGameObjectWithTag("RobertPlayer");
         if (robertPlayerObject != null)
         {
@@ -54,6 +67,11 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.LogError("GameObject with tag 'RobertPlayer' not found.");
+            return;
+        }
+
+        if (!_robertReferences)
+        {
             return;
         }
 
@@ -99,7 +117,27 @@ public class GameManager : MonoBehaviour
 
     public void TriggerRobertPlayerDeath()
     {
-        StartCoroutine(ChangeScene(SceneManager.GetActiveScene().name));
+        //StartCoroutine(ChangeScene(SceneManager.GetActiveScene().name));
+        StartCoroutine(TeleportLastCheckpoint());
+    }
+
+    public IEnumerator TeleportLastCheckpoint()
+    {
+        fadeCanvasGroup.alpha = 0.0f;
+        fadeCanvasGroup.DOFade(1.0f, fadeOutTime);
+
+        InputManager.Instance.InputControls.Disable();
+
+        yield return new WaitForSeconds(fadeOutTime);
+
+        _robertReferences.transform.position = checkpoints[_lastCheckpoint].transform.position;
+        fadeCanvasGroup.DOFade(0.0f, fadeInTime);
+
+        yield return new WaitForSeconds(fadeInTime);
+
+        InputManager.Instance.InputControls.Enable();
+
+        //NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
     public IEnumerator ChangeScene(string sceneName)
