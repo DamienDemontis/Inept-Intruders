@@ -10,9 +10,11 @@ public class Room : MonoBehaviour
 
     void Start()
     {
-        foreach (Transform child in transform)
+        GameObject[] boardInteractableList = GameObject.FindGameObjectsWithTag("BoardInteractable");
+
+        foreach (GameObject boardInteractible in boardInteractableList)
         {
-            IInteractable interactable = child.GetComponentInChildren<IInteractable>();
+            IInteractable interactable = boardInteractible.GetComponentInChildren<IInteractable>();
 
             if (interactable != null)
             {
