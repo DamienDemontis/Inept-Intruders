@@ -78,11 +78,12 @@ public class RobertMovementController : NetworkBehaviour
 
     private void Update()
     {
-        Debug.Log("IsOwner (RobertMovementController.cs) == " + IsOwner);
+        //Debug.Log("IsOwner (RobertMovementController.cs) == " + IsOwner);
         if (!IsOwner)
         {
             return;
         }
+
         if (transform.position.y < -10.0f)
         {
             ForcePosition(_startingPos);
