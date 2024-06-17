@@ -22,7 +22,7 @@ public class RobertCameraController : NetworkBehaviour
     private Vector2 _cameraRotation = Vector2.zero;
     private Vector2 _smoothV = Vector2.zero;
 
-    private void Awake()
+    private void Start()
     {
         if (IsOwner)
         {

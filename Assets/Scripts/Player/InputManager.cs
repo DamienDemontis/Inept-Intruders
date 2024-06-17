@@ -4,7 +4,7 @@ using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputManager : NetworkBehaviour
+public class InputManager : MonoBehaviour
 {
     private static InputManager _instance;
     public static InputManager Instance => _instance;
@@ -19,6 +19,8 @@ public class InputManager : NetworkBehaviour
             Destroy(this);
             return;
         }
+
+        DontDestroyOnLoad(gameObject);
 
         _instance = this;
 

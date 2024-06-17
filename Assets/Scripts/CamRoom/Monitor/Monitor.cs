@@ -8,10 +8,11 @@ public class Monitor : MonoBehaviour, IInteractable
 
     [Header("Camera")]
     [SerializeField] private RenderTexture _screenRenderTexture;
-    [SerializeField] private CamGuyCamera  _camGuyCamera;
-    [SerializeField] private Material      _screenMaterial;
-    [SerializeField] private int           _currentCameraIndex = 0;
-    [SerializeField] private Transform     _focusedCamera;
+    [SerializeField] private CamGuyCamera _camGuyCamera;
+    [SerializeField] private Material _screenMaterial;
+    [SerializeField] private int _currentCameraIndex = 0;
+    [SerializeField] private Transform _focusedCamera;
+    [SerializeField] private Transform unfocusedfocusedCamera;
 
     [Header("Buttons")]
     [SerializeField] private MonitorButton _nextButton;
@@ -21,13 +22,13 @@ public class Monitor : MonoBehaviour, IInteractable
     private Material currentRenderTextureMaterial;
 
     private List<SurveillanceCamera> _roomSurveillanceCamerasList = new List<SurveillanceCamera>();
-    private SurveillanceCamera       _currentCamera;
-    private int                      _lastCurrentCameraIndex;
+    private SurveillanceCamera _currentCamera;
+    private int _lastCurrentCameraIndex;
 
     void Start()
     {
         _screenMaterial.mainTexture = _screenRenderTexture;
-        _lastCurrentCameraIndex     = _currentCameraIndex;
+        _lastCurrentCameraIndex = _currentCameraIndex;
     }
 
     void Update()
@@ -82,14 +83,14 @@ public class Monitor : MonoBehaviour, IInteractable
             _currentCamera.Deactivate();
         }
 
-        _currentCameraIndex     = cameraIndex;
+        _currentCameraIndex = cameraIndex;
         _lastCurrentCameraIndex = _currentCameraIndex;
 
         _currentCamera = _roomSurveillanceCamerasList[_currentCameraIndex % _roomSurveillanceCamerasList.Count];
         _currentCamera.Activate();
         _currentCamera.Controlled = true;
 
-        _screenRenderTexture        = _currentCamera.CamRenderTexture;
+        _screenRenderTexture = _currentCamera.CamRenderTexture;
         _screenMaterial.mainTexture = _screenRenderTexture;
 
         Debug.Log($"[Monitor::SetCameras] New camera : {_currentCamera.name}");
@@ -116,7 +117,7 @@ public class Monitor : MonoBehaviour, IInteractable
             if (Vector3.Distance(this._focusedCamera.transform.position, _camGuyCamera.transform.position) < 1)
             {
                 Debug.Log($"[Monitor::Interact] Resetting camera to base position");
-                _camGuyCamera.ResetToBase(1f);
+                _camGuyCamera.StartTransition(this.unfocusedfocusedCamera.transform, 0, 1f);
             }
             else
             {

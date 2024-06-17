@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    [SerializeReference] private List<IInteractable>      _interactablesList       = new List<IInteractable>();
+    [SerializeReference] private List<IInteractable> _interactablesList = new List<IInteractable>();
     [SerializeReference] private List<SurveillanceCamera> _surveillanceCamerasList = new List<SurveillanceCamera>();
     [SerializeField] private string _id;
+    [SerializeField] private int roomId;
+
+    public int RoomId => roomId;
 
     void Start()
     {
-        foreach (Transform child in transform)
+        GameObject[] boardInteractableList = GameObject.FindGameObjectsWithTag("BoardInteractable");
+
+        foreach (GameObject boardInteractible in boardInteractableList)
         {
-            IInteractable interactable = child.GetComponentInChildren<IInteractable>();
+            IInteractable interactable = boardInteractible.GetComponentInChildren<IInteractable>();
 
             if (interactable != null)
             {
@@ -31,5 +36,5 @@ public class Room : MonoBehaviour
     { get { return _interactablesList; } }
 
     public List<SurveillanceCamera> SurveillanceCamerasList
-    { get { return _surveillanceCamerasList;} }
+    { get { return _surveillanceCamerasList; } }
 }

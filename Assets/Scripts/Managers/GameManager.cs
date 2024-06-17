@@ -115,6 +115,24 @@ public class GameManager : NetworkBehaviour
         _robertReferences.RobertCameraController.ForceYRotation(saveTransform.rotation.eulerAngles.y);
     }
 
+    public IEnumerator TeleportRobertPlayer(Vector3 position)
+    {
+        fadeCanvasGroup.alpha = 0.0f;
+        fadeCanvasGroup.DOFade(1.0f, fadeOutTime);
+
+        InputManager.Instance.InputControls.Disable();
+
+        yield return new WaitForSeconds(fadeOutTime);
+
+        _robertReferences.RobertMovementController.ForcePosition(position);
+
+        fadeCanvasGroup.DOFade(0.0f, fadeInTime);
+
+        yield return new WaitForSeconds(fadeInTime);
+
+        InputManager.Instance.InputControls.Enable();
+    }
+
     public void TriggerRobertPlayerDeath()
     {
         //StartCoroutine(ChangeScene(SceneManager.GetActiveScene().name));
@@ -130,7 +148,7 @@ public class GameManager : NetworkBehaviour
 
         yield return new WaitForSeconds(fadeOutTime);
 
-        _robertReferences.transform.position = checkpoints[_lastCheckpoint].transform.position;
+        LoadLastCheckpoint();
         fadeCanvasGroup.DOFade(0.0f, fadeInTime);
 
         yield return new WaitForSeconds(fadeInTime);

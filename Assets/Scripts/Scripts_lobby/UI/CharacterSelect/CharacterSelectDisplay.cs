@@ -16,6 +16,8 @@ public class CharacterSelectDisplay : NetworkBehaviour
     [SerializeField] private Transform introSpawnPoint;
     [SerializeField] private TMP_Text joinCodeText;
     [SerializeField] private UnityEngine.UI.Button lockInButton;
+    [SerializeField] private AudioSource audioSourceRobert;
+    [SerializeField] private AudioSource audioSourceCamGuy;
 
     private GameObject introInstance;
     private List<CharacterSelectButton> characterButtons = new List<CharacterSelectButton>();
@@ -24,6 +26,9 @@ public class CharacterSelectDisplay : NetworkBehaviour
     private void Awake()
     {
         players = new NetworkList<CharacterSelectState>();
+
+        selectButtonPrefab.CamGuyOST = audioSourceCamGuy;
+        selectButtonPrefab.RobertOST = audioSourceRobert;
     }
 
     public override void OnNetworkSpawn()

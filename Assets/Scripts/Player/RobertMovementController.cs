@@ -35,16 +35,19 @@ public class RobertMovementController : NetworkBehaviour
 
     public Animator Animator => _animator;
 
-    private void Awake()
+    private void Start()
     {
         _characterController = GetComponent<CharacterController>();
         _animator = modelTransform.GetComponent<Animator>();
 
         _startingPos = transform.position;
-    }
 
-    private void OnEnable()
-    {
+        Debug.LogWarning($"OnEnable Robert Movement isOwner {IsOwner} InputManager {InputManager.Instance}");
+        if (!IsOwner)
+        {
+            return;
+        }
+
         InputManager inst = InputManager.Instance;
 
         if (inst == null)
@@ -52,7 +55,6 @@ public class RobertMovementController : NetworkBehaviour
             Debug.LogWarning("InputManager is null");
             return;
         }
-
 
         InputManager.Instance.InputControls.Game.Move.started += OnMove;
         InputManager.Instance.InputControls.Game.Move.performed += OnMove;
@@ -62,6 +64,13 @@ public class RobertMovementController : NetworkBehaviour
 
     private void OnDisable()
     {
+        Debug.LogWarning($"OnDisable Robert Movement isOwner {IsOwner} InputManager {InputManager.Instance}");
+
+        if (!IsOwner)
+        {
+            return;
+        }
+
         InputManager inst = InputManager.Instance;
 
         if (inst == null)
