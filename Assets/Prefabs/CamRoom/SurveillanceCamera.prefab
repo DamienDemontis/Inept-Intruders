@@ -426,7 +426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: SurveillanceCamera#0
   _camera: {fileID: 8250746357947509427}
-  _resolution: {x: 320, y: 240}
+  _resolution: {x: 640, y: 480}
   _framerate: 24
   _rotationSpeed: 10
   _zoomSpeed: 1
